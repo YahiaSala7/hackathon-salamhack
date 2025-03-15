@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-background;
+  }
+  
+  body {
+    @apply font-text text-text;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-heading;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-button text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity;
+  }
+
+  .success-message {
+    @apply text-success;
+  }
+
+  .error-message {
+    @apply text-error;
+  }
+}
