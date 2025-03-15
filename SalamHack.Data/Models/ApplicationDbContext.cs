@@ -36,10 +36,9 @@ namespace SalamHack.Data
             //        .OnDelete(DeleteBehavior.Cascade);
             //});
 
-            // Configure Project entity
             modelBuilder.Entity<Project>(entity =>
             {
-             
+
 
                 entity.HasMany(e => e.Rooms)
                     .WithOne(e => e.Project)
@@ -57,7 +56,6 @@ namespace SalamHack.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configure Room entity
             modelBuilder.Entity<Room>(entity =>
             {
                 entity.HasOne(e => e.Project)
@@ -71,7 +69,6 @@ namespace SalamHack.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configure Furniture entity
             modelBuilder.Entity<Furniture>(entity =>
             {
                 entity.HasOne(e => e.Room)
@@ -85,7 +82,6 @@ namespace SalamHack.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configure Layout entity
             modelBuilder.Entity<Layout>(entity =>
             {
                 entity.HasOne(e => e.Project)
@@ -94,7 +90,6 @@ namespace SalamHack.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configure Report entity
             modelBuilder.Entity<Report>(entity =>
             {
                 entity.HasOne(e => e.Project)
@@ -103,7 +98,6 @@ namespace SalamHack.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configure PriceComparison entity
             modelBuilder.Entity<PriceComparison>(entity =>
             {
                 entity.HasOne(e => e.Furniture)

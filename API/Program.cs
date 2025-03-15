@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SalamHack.Data;
 using SalamHack.Data.Entity.Identity;
-using SalamHack.Data;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -89,43 +87,25 @@ builder.Services.AddAuthentication(x =>
 })
 .AddJwtBearer(x =>
 {
-   x.RequireHttpsMetadata = false;
-   x.SaveToken = true;
-   x.TokenValidationParameters = new TokenValidationParameters
-   {
-       ValidateIssuer = jwtSettings.ValidateIssuer,
-       ValidIssuers = new[] { jwtSettings.Issuer },
-       ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
-       IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-       ValidAudience = jwtSettings.Audience,
-       ValidateAudience = jwtSettings.ValidateAudience,
-       ValidateLifetime = jwtSettings.ValidateLifeTime,
-   };
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = jwtSettings.ValidateIssuer,
+        ValidIssuers = new[] { jwtSettings.Issuer },
+        ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
+        ValidAudience = jwtSettings.Audience,
+        ValidateAudience = jwtSettings.ValidateAudience,
+        ValidateLifetime = jwtSettings.ValidateLifeTime,
+    };
 });
-
-//builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IProjectService, ProjectService>();
-//builder.Services.AddScoped<IRoomService, RoomService>();
-//builder.Services.AddScoped<IFurnitureService, FurnitureService>();
-//builder.Services.AddScoped<IPriceComparisonService, PriceComparisonService>();
-//builder.Services.AddScoped<ILayoutService, LayoutService>();
-//builder.Services.AddScoped<IReportService, ReportService>();
-//builder.Services.AddScoped<IAIRecommendationService, AIRecommendationService>();
-//builder.Services.AddScoped<IPriceSearchService, PriceSearchService>();
-
-//// Register repositories
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-//builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-//builder.Services.AddScoped<IFurnitureRepository, FurnitureRepository>();
-//builder.Services.AddScoped<IPriceComparisonRepository, PriceComparisonRepository>();
-//builder.Services.AddScoped<ILayoutRepository, LayoutRepository>();
-//builder.Services.AddScoped<IReportRepository, ReportRepository>();
-
-//// Register external builder.Services
-//builder.Services.AddScoped<IAIClient, AIClient>();
-//builder.Services.AddScoped<IExternalPriceApiClient, ExternalPriceApiClient>();
-//builder.Services.AddScoped<IGeocodingService, GeocodingService>();
+builder.Services.AddServiceDependencies().AddDataDependencies();
+builder.Services.AddAutoMapper(typeof(PurchaseProfile).Assembly);
+// Register external builder.Services
+builder.Services.AddScoped<IAIClient, AIClient>();
+builder.Services.AddScoped<IExternalPriceApiClient, ExternalPriceApiClient>();
+builder.Services.AddScoped<IGeocodingService, GeocodingService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                options.UseSqlServer(builder.Configuration.GetConnectionString("TestDb")));
