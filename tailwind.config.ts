@@ -7,17 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        heading: "#0B132A",
-        button: "#3878FF",
-        text: "#4F5665",
-        background: "#F0F4F8",
-        success: "#28A745",
-        error: "#DC3545",
-      },
+      colors: {},
       fontFamily: {
-        heading: ["Rubik", "sans-serif"],
-        text: ["Inter", "sans-serif"],
+        heading: ["var(--rubik)", "sans-serif"],
+        text: ["var(--inter)", "sans-serif"],
       },
     },
   },
