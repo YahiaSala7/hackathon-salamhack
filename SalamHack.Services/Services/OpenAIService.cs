@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using SalamHack.Data.DTOS.Recommendation;
 using SalamHack.Models;
-using SalamHack.Services.interfaces;
 using System.Text;
 
 namespace SalamHack.Services.Services
@@ -98,8 +98,42 @@ namespace SalamHack.Services.Services
 
         public async Task<string> GenerateReportSummary(Project project)
         {
-        }
+            try
+            {
+                var prompt = $"Generate a concise summary of the home setup project with the following details: " +
+                    $"Budget: {project.Budget:C}, " +
+                    $"Home Size: {project.HomeSize} square meters, " +
+                    $"Location: {project.Location}, " +
+                    $"Style Preference: {project.StylePreference}, " +
+                    $"Room Count: {project.RoomCount}. " +
+                    $"The summary should highlight the key features and strengths of the design plan.";
 
+                var requestBody = new
+                {
+                    model = "gpt-4",
+                    messages = new[]
+                    {
+                new { role = "system", content = "You are an expert interior designer summarizing home setup projects." },
+                new { role = "user", content = prompt }
+            },
+                    temperature = 0.7,
+                    max_tokens = 300
+                };
+
+                var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync(_apiUrl, content);
+                response.EnsureSuccessStatusCode();
+
+                var responseString = await response.Content.ReadAsStringAsync();
+                var responseObj = JsonConvert.DeserializeObject<dynamic>(responseString);
+                return responseObj.choices[0].message.content.ToString();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error generating report summary from OpenAI");
+                return $"Smart Home Setup Summary for {project.Location} - {project.StylePreference} style with {project.RoomCount} rooms";
+            }
+        }
     }
 }
 

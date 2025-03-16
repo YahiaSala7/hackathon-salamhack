@@ -2,7 +2,7 @@
 using SalamHack.Data.DTOS.PriceComparison;
 using SalamHack.Data.DTOS.Store;
 
-namespace SalamHack.Services.interfaces
+namespace SalamHack.Services.Interfaces
 {
     public interface IExternalPriceApiClient
     {

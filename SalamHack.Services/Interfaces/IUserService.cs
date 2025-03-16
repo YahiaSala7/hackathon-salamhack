@@ -1,7 +1,7 @@
 ﻿/*using SalamHack.DTOs;
 using SalamHack.Models;
 
-namespace SalamHack.Services.interfaces
+namespace SalamHack.Services.Interfaces
 {
 
     public interface IUserService

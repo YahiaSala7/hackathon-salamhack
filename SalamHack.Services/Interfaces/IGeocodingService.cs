@@ -1,4 +1,4 @@
-﻿namespace SalamHack.Services.interfaces
+﻿namespace SalamHack.Services.Interfaces
 {
     public interface IGeocodingService
     {

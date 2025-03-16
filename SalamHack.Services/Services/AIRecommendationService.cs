@@ -1,7 +1,7 @@
 ﻿using SalamHack.Data.DTOS.Recommendation;
-using SalamHack.Data.Repositories;
 using SalamHack.Data.Repositories.Interfaces;
 using SalamHack.Models;
+using SalamHack.Services.Interfaces;
 
 namespace SalamHack.Services.Services
 {
@@ -9,7 +9,7 @@ namespace SalamHack.Services.Services
     {
         private readonly IAIClient _aiClient;
         private readonly IProjectRepository _projectRepository;
-        private readonly RoomRepository _roomRepository;
+        private readonly IRoomRepository _roomRepository;
         private readonly IFurnitureRepository _furnitureRepository;
 
         public AIRecommendationService(
@@ -26,6 +26,11 @@ namespace SalamHack.Services.Services
 
         public async Task<AIRecommendationResponseDto> GetRecommendationsAsync(int projectId, int? roomId = null)
         {
+            // Get project details for context
+            var project = await _projectRepository.GetProjectWithDetailsAsync(projectId);
+            if (project == null)
+                throw new ArgumentException("Project not found");
+
             // Get project or room-specific recommendations from AI
             var recommendations = await _aiClient.GetRecommendationsAsync(projectId, roomId);
 
@@ -36,6 +41,10 @@ namespace SalamHack.Services.Services
                 {
                     if (recommendation.RoomId.HasValue)
                     {
+                        // Check if the room exists
+                        var room = await _roomRepository.GetByIdAsync(recommendation.RoomId.Value);
+                        if (room == null) continue;
+
                         // Create furniture items based on AI recommendations
                         var furniture = new Furniture
                         {
@@ -43,8 +52,10 @@ namespace SalamHack.Services.Services
                             Name = recommendation.Name,
                             Category = recommendation.Category,
                             Price = recommendation.EstimatedPrice,
-                            StoreLink = recommendation.PreferredStore
+                            StoreLink = recommendation.PreferredStore,
+                            // Description = recommendation.RecommendationReason // Add description from reason
                         };
+
                         // Only add if there isn't already similar furniture
                         var existingFurniture = await _furnitureRepository.GetByRoomIdAsync(recommendation.RoomId.Value);
                         if (!existingFurniture.Any(f =>
@@ -52,6 +63,24 @@ namespace SalamHack.Services.Services
                             f.Name.ToLower().Contains(furniture.Name.ToLower())))
                         {
                             await _furnitureRepository.CreateAsync(furniture);
+                        }
+                    }
+                }
+            }
+
+            // Add room budget recommendations as well if provided
+            if (recommendations.RoomBudgetRecommendations != null && recommendations.RoomBudgetRecommendations.Any())
+            {
+                foreach (var budgetRec in recommendations.RoomBudgetRecommendations)
+                {
+                    var room = await _roomRepository.GetByIdAsync(budgetRec.RoomId);
+                    if (room != null && room.ProjectId == projectId) // Ensure the room belongs to this project
+                    {
+                        // Only update if the recommendation is significantly different (> 5%)
+                        if (Math.Abs(room.RoomBudget - budgetRec.RecommendedBudget) / room.RoomBudget > 0.05m)
+                        {
+                            room.RoomBudget = budgetRec.RecommendedBudget;
+                            await _roomRepository.UpdateAsync(room);
                         }
                     }
                 }

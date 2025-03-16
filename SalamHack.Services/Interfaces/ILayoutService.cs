@@ -1,6 +1,6 @@
 ﻿using SalamHack.Data.DTOS.Layout;
 
-namespace SalamHack.Services.interfaces
+namespace SalamHack.Services.Interfaces
 {
 
     public interface ILayoutService

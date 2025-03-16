@@ -1,4 +1,6 @@
-﻿using SalamHack.Models;
+﻿using SalamHack.Data.Repositories.Interfaces;
+using SalamHack.Models;
+using SalamHack.Services.Interfaces;
 
 namespace SalamHack.Services.Services
 {

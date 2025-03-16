@@ -1,6 +1,6 @@
 ﻿using SalamHack.Data.DTOS.Room;
 
-namespace SalamHack.Services.interfaces
+namespace SalamHack.Services.Interfaces
 {
 
     public interface IRoomService

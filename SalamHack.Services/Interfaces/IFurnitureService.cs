@@ -1,6 +1,6 @@
 ﻿using SalamHack.Data.DTOS.Furniture;
 
-namespace SalamHack.Services.interfaces
+namespace SalamHack.Services.Interfaces
 {
 
     public interface IFurnitureService

@@ -1,34 +1,54 @@
-﻿using SalamHack.Models;
+﻿using AutoMapper;
+using SalamHack.Data.DTOS.Room;
+using SalamHack.Data.Repositories.Interfaces;
+using SalamHack.Models;
+using SalamHack.Services.Interfaces;
 
 namespace SalamHack.Services.Services
 {
     public class RoomService : IRoomService
     {
         private readonly IRoomRepository _roomRepository;
+        private readonly IMapper _mapper;
 
-        public RoomService(IRoomRepository roomRepository)
+        public RoomService(IRoomRepository roomRepository, IMapper mapper)
         {
             _roomRepository = roomRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Room> GetRoomByIdAsync(int roomId)
+        public async Task<RoomDto> GetRoomByIdAsync(int roomId)
         {
-            return await _roomRepository.GetByIdAsync(roomId);
+            var room = await _roomRepository.GetByIdAsync(roomId);
+            return _mapper.Map<RoomDto>(room);
         }
 
-        public async Task<List<Room>> GetRoomsByProjectIdAsync(int projectId)
+        public async Task<List<RoomDto>> GetProjectRoomsAsync(int projectId)
         {
-            return await _roomRepository.GetByProjectIdAsync(projectId);
+            var rooms = await _roomRepository.GetByProjectIdAsync(projectId);
+            return _mapper.Map<List<RoomDto>>(rooms);
         }
 
-        public async Task<Room> CreateRoomAsync(Room room)
+        public async Task<RoomDto> CreateRoomAsync(RoomCreateDto roomCreateDto)
         {
-            return await _roomRepository.CreateAsync(room);
+            // تحويل DTO إلى كيان باستخدام AutoMapper
+            var roomEntity = _mapper.Map<Room>(roomCreateDto);
+            var createdRoom = await _roomRepository.CreateAsync(roomEntity);
+            return _mapper.Map<RoomDto>(createdRoom);
         }
 
-        public async Task<Room> UpdateRoomAsync(Room room)
+        public async Task<RoomDto> UpdateRoomAsync(int roomId, RoomCreateDto roomUpdateDto)
         {
-            return await _roomRepository.UpdateAsync(room);
+            var existingRoom = await _roomRepository.GetByIdAsync(roomId);
+            if (existingRoom == null)
+            {
+                throw new Exception("Room not found");
+            }
+
+            // تحديث الكيان باستخدام AutoMapper (تحديث الخصائص الموجودة)
+            _mapper.Map(roomUpdateDto, existingRoom);
+            var updatedRoom = await _roomRepository.UpdateAsync(existingRoom);
+            return _mapper.Map<RoomDto>(updatedRoom);
         }
 
         public async Task<bool> DeleteRoomAsync(int roomId)

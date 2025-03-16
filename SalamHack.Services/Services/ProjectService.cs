@@ -1,132 +1,153 @@
-﻿using SalamHack.Data.Repositories.Interfaces;
+﻿using AutoMapper;
+using SalamHack.Data.DTOS.Project;
+using SalamHack.Data.DTOS.Room;
+using SalamHack.Data.Repositories.Interfaces;
 using SalamHack.Models;
+using SalamHack.Services.Interfaces;
 
-namespace SalamHack.Services.Services;
-public class ProjectService : IProjectService
+namespace SalamHack.Services.Services
 {
-    private readonly IProjectRepository _projectRepository;
-    private readonly IRoomService _roomService;
-    private readonly IGeocodingService _geocodingService;
-
-    public ProjectService(
-        IProjectRepository projectRepository,
-        IRoomService roomService,
-        IGeocodingService geocodingService)
+    public class ProjectService : IProjectService
     {
-        _projectRepository = projectRepository;
-        _roomService = roomService;
-        _geocodingService = geocodingService;
-    }
+        private readonly IProjectRepository _projectRepository;
+        private readonly IRoomService _roomService;
+        private readonly IGeocodingService _geocodingService;
+        private readonly IMapper _mapper;
 
-    public async Task<Project> GetProjectByIdAsync(int projectId)
-    {
-        return await _projectRepository.GetByIdAsync(projectId);
-    }
-
-    public async Task<Project> GetProjectWithDetailsAsync(int projectId)
-    {
-        return await _projectRepository.GetProjectWithDetailsAsync(projectId);
-    }
-
-    public async Task<List<Project>> GetProjectsByUserIdAsync(int userId)
-    {
-        return await _projectRepository.GetByUserIdAsync(userId);
-    }
-
-    public async Task<Project> CreateProjectAsync(Project project)
-    {
-        // Validate the location using geocoding service
-        try
+        public ProjectService(
+            IProjectRepository projectRepository,
+            IRoomService roomService,
+            IGeocodingService geocodingService,
+            IMapper mapper)
         {
-            var (latitude, longitude) = await _geocodingService.GetCoordinatesAsync(project.Location);
-            // Could store these coordinates if needed for future reference
-        }
-        catch (Exception)
-        {
-            throw new ArgumentException("Invalid location provided. Please provide a valid address.");
+            _projectRepository = projectRepository;
+            _roomService = roomService;
+            _geocodingService = geocodingService;
+            _mapper = mapper;
         }
 
-        // Create the project
-        var createdProject = await _projectRepository.CreateAsync(project);
-
-        // Create default rooms based on room count
-        if (createdProject.RoomCount > 0)
+        public async Task<ProjectDto> GetProjectByIdAsync(int projectId)
         {
-            // Create a living room by default
-            await _roomService.CreateRoomAsync(new Room
-            {
-                ProjectId = createdProject.ProjectId,
-                RoomType = "Living Room",
-                RoomSize = 25, // Default size
-                RoomBudget = createdProject.Budget * 0.3m // Allocate 30% to living room by default
-            });
-
-            // Create a kitchen by default
-            await _roomService.CreateRoomAsync(new Room
-            {
-                ProjectId = createdProject.ProjectId,
-                RoomType = "Kitchen",
-                RoomSize = 20, // Default size
-                RoomBudget = createdProject.Budget * 0.25m // Allocate 25% to kitchen by default
-            });
-
-            // Create a bedroom
-            await _roomService.CreateRoomAsync(new Room
-            {
-                ProjectId = createdProject.ProjectId,
-                RoomType = "Bedroom",
-                RoomSize = 18, // Default size
-                RoomBudget = createdProject.Budget * 0.20m // Allocate 20% to bedroom by default
-            });
-
-            // Create a bathroom
-            await _roomService.CreateRoomAsync(new Room
-            {
-                ProjectId = createdProject.ProjectId,
-                RoomType = "Bathroom",
-                RoomSize = 10, // Default size
-                RoomBudget = createdProject.Budget * 0.15m // Allocate 15% to bathroom by default
-            });
-
-            // Create additional bedrooms if room count is greater than 4
-            for (int i = 5; i <= createdProject.RoomCount; i++)
-            {
-                await _roomService.CreateRoomAsync(new Room
-                {
-                    ProjectId = createdProject.ProjectId,
-                    RoomType = $"Additional Room {i-4}",
-                    RoomSize = 15, // Default size
-                    RoomBudget = createdProject.Budget * 0.10m / (createdProject.RoomCount - 4) // Allocate remaining budget evenly
-                });
-            }
+            var project = await _projectRepository.GetByIdAsync(projectId);
+            return _mapper.Map<ProjectDto>(project);
         }
 
-        return createdProject;
-    }
-
-    public async Task<Project> UpdateProjectAsync(Project project)
-    {
-        // Validate the location using geocoding service if it has changed
-        var existingProject = await _projectRepository.GetByIdAsync(project.ProjectId);
-        if (existingProject.Location != project.Location)
+        public async Task<ProjectDetailDto> GetProjectDetailsAsync(int projectId)
         {
+            var project = await _projectRepository.GetProjectWithDetailsAsync(projectId);
+            return _mapper.Map<ProjectDetailDto>(project);
+        }
+
+        public async Task<List<ProjectDto>> GetUserProjectsAsync(int userId)
+        {
+            var projects = await _projectRepository.GetByUserIdAsync(userId);
+            return _mapper.Map<List<ProjectDto>>(projects);
+        }
+
+        public async Task<ProjectDto> CreateProjectAsync(int userId, ProjectCreateDto projectCreateDto)
+        {
+            // تحويل الـ DTO إلى كيان باستخدام AutoMapper
+            var projectEntity = _mapper.Map<Project>(projectCreateDto);
+            //   projectEntity.UserId = userId; // تعيين المستخدم المُنشئ
+
+            // التحقق من صحة الموقع باستخدام خدمة Geocoding
             try
             {
-                var (latitude, longitude) = await _geocodingService.GetCoordinatesAsync(project.Location);
-                // Could store these coordinates if needed for future reference
+                var (latitude, longitude) = await _geocodingService.GetCoordinatesAsync(projectEntity.Location);
+                // يمكن تخزين الإحداثيات في الكيان إذا كان لديك خصائص مخصصة
             }
             catch (Exception)
             {
                 throw new ArgumentException("Invalid location provided. Please provide a valid address.");
             }
+
+            // إنشاء المشروع
+            var createdProject = await _projectRepository.CreateAsync(projectEntity);
+
+            // إنشاء الغرف الافتراضية بناءً على عدد الغرف
+            if (createdProject.RoomCount > 0)
+            {
+                // غرفة المعيشة
+                await _roomService.CreateRoomAsync(new RoomCreateDto
+                {
+                    ProjectId = createdProject.ProjectId,
+                    RoomType = "Living Room",
+                    RoomSize = 25,
+                    RoomBudget = createdProject.Budget * 0.3m
+                });
+
+                // المطبخ
+                await _roomService.CreateRoomAsync(new RoomCreateDto
+                {
+                    ProjectId = createdProject.ProjectId,
+                    RoomType = "Kitchen",
+                    RoomSize = 20,
+                    RoomBudget = createdProject.Budget * 0.25m
+                });
+
+                // غرفة النوم
+                await _roomService.CreateRoomAsync(new RoomCreateDto
+                {
+                    ProjectId = createdProject.ProjectId,
+                    RoomType = "Bedroom",
+                    RoomSize = 18,
+                    RoomBudget = createdProject.Budget * 0.20m
+                });
+
+                // الحمام
+                await _roomService.CreateRoomAsync(new RoomCreateDto
+                {
+                    ProjectId = createdProject.ProjectId,
+                    RoomType = "Bathroom",
+                    RoomSize = 10,
+                    RoomBudget = createdProject.Budget * 0.15m
+                });
+
+                // غرف إضافية إذا كان عدد الغرف أكبر من 4
+                for (int i = 5; i <= createdProject.RoomCount; i++)
+                {
+                    await _roomService.CreateRoomAsync(new RoomCreateDto
+                    {
+                        ProjectId = createdProject.ProjectId,
+                        RoomType = $"Additional Room {i - 4}",
+                        RoomSize = 15,
+                        RoomBudget = createdProject.Budget * 0.10m / (createdProject.RoomCount - 4)
+                    });
+                }
+            }
+
+            return _mapper.Map<ProjectDto>(createdProject);
         }
 
-        return await _projectRepository.UpdateAsync(project);
-    }
+        public async Task<ProjectDto> UpdateProjectAsync(int projectId, ProjectCreateDto projectUpdateDto)
+        {
+            var existingProject = await _projectRepository.GetByIdAsync(projectId);
+            if (existingProject == null)
+                throw new ArgumentException("Project not found");
 
-    public async Task<bool> DeleteProjectAsync(int projectId)
-    {
-        return await _projectRepository.DeleteAsync(projectId);
+            // التحقق من صحة الموقع إذا تغير
+            if (existingProject.Location != projectUpdateDto.Location)
+            {
+                try
+                {
+                    var (latitude, longitude) = await _geocodingService.GetCoordinatesAsync(projectUpdateDto.Location);
+                    // يمكن تحديث الإحداثيات في الكيان إذا كان ذلك مطلوبًا
+                }
+                catch (Exception)
+                {
+                    throw new ArgumentException("Invalid location provided. Please provide a valid address.");
+                }
+            }
+
+            // تحديث بيانات المشروع باستخدام AutoMapper
+            _mapper.Map(projectUpdateDto, existingProject);
+            var updatedProject = await _projectRepository.UpdateAsync(existingProject);
+            return _mapper.Map<ProjectDto>(updatedProject);
+        }
+
+        public async Task<bool> DeleteProjectAsync(int projectId)
+        {
+            return await _projectRepository.DeleteAsync(projectId);
+        }
     }
-}
 }

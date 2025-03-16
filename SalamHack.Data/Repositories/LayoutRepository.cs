@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SalamHack.Data.Repositories.Interfaces;
 using SalamHack.Models;
 
 namespace SalamHack.Data.Repositories

@@ -2,6 +2,7 @@
 using SalamHack.Data.DTOS.PriceComparison;
 using SalamHack.Data.DTOS.Store;
 using SalamHack.Data.Repositories.Interfaces;
+using SalamHack.Services.Interfaces;
 
 namespace SalamHack.Services.Services
 {
@@ -45,4 +46,4 @@ namespace SalamHack.Services.Services
     }
 }
 
-    }
+

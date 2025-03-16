@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
-using SalamHack.Data.DTOS.Furniture;
 using SalamHack.Data.DTOS.Project;
 using SalamHack.Data.DTOS.Recommendation;
 using SalamHack.Data.DTOS.Room;
-using SalamHack.Services.interfaces;
+using SalamHack.Services.Interfaces;
 using System.Text;
 using System.Text.Json;
 
@@ -206,20 +205,21 @@ namespace SalamHack.Services.Services
 
             return prompt.ToString();
         }
-
         private async Task<string> MakeOpenAIRequestAsync(string prompt)
         {
-            var httpClient = _httpClientFactory.CreateClient();
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
+            if (string.IsNullOrWhiteSpace(prompt)) throw new ArgumentException("Prompt cannot be null or empty.", nameof(prompt));
+
+            using var httpClient = _httpClientFactory.CreateClient();
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
 
             var requestBody = new
             {
                 model = "gpt-4-turbo",
                 messages = new[]
                 {
-                    new { role = "system", content = "You are an interior design and home planning AI assistant that provides detailed, specific recommendations based on budget, style, and room requirements. Format your responses in the requested structure." },
-                    new { role = "user", content = prompt }
-                },
+            new { role = "system", content = "You are an interior design and home planning AI assistant that provides detailed, specific recommendations based on budget, style, and room requirements. Format your responses in the requested structure." },
+            new { role = "user", content = prompt }
+        },
                 temperature = 0.7
             };
 
@@ -228,14 +228,32 @@ namespace SalamHack.Services.Services
                 Encoding.UTF8,
                 "application/json");
 
-            var response = await httpClient.PostAsync(_apiUrl, requestContent);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                using var response = await httpClient.PostAsync(_apiUrl, requestContent);
+                response.EnsureSuccessStatusCode();
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            var responseObject = JsonSerializer.Deserialize<JsonElement>(responseString);
+                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                using var jsonDoc = await JsonDocument.ParseAsync(responseStream);
 
-            return responseObject.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
+                var content = jsonDoc.RootElement
+                                    .GetProperty("choices")[0]
+                                    .GetProperty("message")
+                                    .GetProperty("content")
+                                    .GetString();
+
+                if (string.IsNullOrWhiteSpace(content))
+                    throw new InvalidOperationException("The response from OpenAI was empty or invalid.");
+
+                return content;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception("An error occurred while calling the OpenAI API.", ex);
+            }
         }
+
+
 
         private async Task<string> MakeDALLERequestAsync(string prompt)
         {
@@ -264,14 +282,12 @@ namespace SalamHack.Services.Services
 
             return responseObject.GetProperty("data")[0].GetProperty("url").GetString();
         }
-
         private AIRecommendationResponseDto ParseAIRecommendationResponse(string response, ProjectDetailDto projectDetails)
         {
             try
             {
                 // Parse the JSON response from OpenAI
                 var responseObject = JsonSerializer.Deserialize<JsonElement>(response);
-
                 var result = new AIRecommendationResponseDto
                 {
                     RoomRecommendations = new List<RoomRecommendationDto>(),
@@ -286,13 +302,13 @@ namespace SalamHack.Services.Services
                     {
                         RoomType = roomRec.GetProperty("roomType").GetString(),
                         RecommendedBudget = roomRec.GetProperty("recommendedBudget").GetDecimal(),
-                        RecommendedFurniture = new List<FurnitureRecommendationDto>()
+                        RecommendedFurniture = new List<FurnitureDTO>()
                     };
 
                     var furniture = roomRec.GetProperty("recommendedFurniture");
                     foreach (var item in furniture.EnumerateArray())
                     {
-                        roomRecommendation.RecommendedFurniture.Add(new FurnitureRecommendationDto
+                        roomRecommendation.RecommendedFurniture.Add(new FurnitureDTO
                         {
                             Name = item.GetProperty("name").GetString(),
                             Category = item.GetProperty("category").GetString(),
@@ -301,10 +317,8 @@ namespace SalamHack.Services.Services
                             ImageUrl = item.GetProperty("imageUrl").GetString()
                         });
                     }
-
                     result.RoomRecommendations.Add(roomRecommendation);
                 }
-
                 return result;
             }
             catch (Exception ex)
@@ -326,6 +340,68 @@ namespace SalamHack.Services.Services
             // In a real implementation, we might want to further process this to improve formatting
             return response;
         }
+
+        /* private AIRecommendationResponseDto ParseAIRecommendationResponse(string response, ProjectDetailDto projectDetails)
+         {
+             try
+             {
+                 // Parse the JSON response from OpenAI
+                 var responseObject = JsonSerializer.Deserialize<JsonElement>(response);
+
+                 var result = new AIRecommendationResponseDto
+                 {
+                     RoomRecommendations = new List<RoomRecommendationDto>(),
+                     TotalBudgetUsed = responseObject.GetProperty("totalBudgetUsed").GetDecimal(),
+                     GeneralRecommendation = responseObject.GetProperty("generalRecommendation").GetString()
+                 };
+
+                 var recommendations = responseObject.GetProperty("roomRecommendations");
+                 foreach (var roomRec in recommendations.EnumerateArray())
+                 {
+                     var roomRecommendation = new RoomRecommendationDto
+                     {
+                         RoomType = roomRec.GetProperty("roomType").GetString(),
+                         RecommendedBudget = roomRec.GetProperty("recommendedBudget").GetDecimal(),
+                         RecommendedFurniture = new List<FurnitureRecommendationDto>()
+                     };
+
+                     var furniture = roomRec.GetProperty("recommendedFurniture");
+                     foreach (var item in furniture.EnumerateArray())
+                     {
+                         roomRecommendation.RecommendedFurniture.Add(new FurnitureRecommendationDto
+                         {
+                             Name = item.GetProperty("name").GetString(),
+                             Category = item.GetProperty("category").GetString(),
+                             EstimatedPrice = item.GetProperty("estimatedPrice").GetDecimal(),
+                             RecommendationReason = item.GetProperty("recommendationReason").GetString(),
+                             ImageUrl = item.GetProperty("imageUrl").GetString()
+                         });
+                     }
+
+                     result.RoomRecommendations.Add(roomRecommendation);
+                 }
+
+                 return result;
+             }
+             catch (Exception ex)
+             {
+                 // Log the error and return a fallback response
+                 Console.WriteLine($"Error parsing AI response: {ex.Message}");
+                 return new AIRecommendationResponseDto
+                 {
+                     RoomRecommendations = new List<RoomRecommendationDto>(),
+                     TotalBudgetUsed = 0,
+                     GeneralRecommendation = "Unable to parse AI recommendations. Please try again."
+                 };
+             }
+         }
+
+         private string FormatReportResponse(string response, ProjectDetailDto projectDetails)
+         {
+             // Simply return the response as it should already be formatted correctly
+             // In a real implementation, we might want to further process this to improve formatting
+             return response;
+         }*/
     }
 }
 

@@ -1,11 +1,6 @@
 ﻿using SalamHack.Data.DTOS.Recommendation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SalamHack.Services.interfaces
+namespace SalamHack.Services.Interfaces
 {
 
     public interface IAIClient

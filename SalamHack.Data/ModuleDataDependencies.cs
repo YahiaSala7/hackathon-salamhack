@@ -10,13 +10,14 @@ namespace SalamHack.Data
         public static IServiceCollection AddDataDependencies(this IServiceCollection services)
         {
 
-            Services.AddScoped<IUserRepository, UserRepository>();
-            Services.AddScoped<IProjectRepository, ProjectRepository>();
-            Services.AddScoped<IRoomRepository, RoomRepository>();
-            Services.AddScoped<IFurnitureRepository, FurnitureRepository>();
-            Services.AddScoped<IPriceComparisonRepository, PriceComparisonRepository>();
-            Services.AddScoped<ILayoutRepository, LayoutRepository>();
-            Services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IFurnitureRepository, FurnitureRepository>();
+            services.AddScoped<IPriceComparisonRepository, PriceComparisonRepository>();
+            services.AddScoped<ILayoutRepository, LayoutRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
+
             return services;
         }
     }
