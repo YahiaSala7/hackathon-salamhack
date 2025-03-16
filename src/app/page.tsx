@@ -1,10 +1,9 @@
-import ExampleComponent from "@/Components/ExampleComponent";
-import Image from "next/image";
+import Header from "@/Components/Home/Header";
 
 export default function Home() {
   return (
     <>
-      <ExampleComponent />
+      <Header />
     </>
   );
 }
