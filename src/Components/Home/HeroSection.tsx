@@ -3,7 +3,7 @@ import Image from "next/image";
 const HeroSection = () => {
   return (
     <Container className="flex items-center gap-10 justify-between max-sm:flex-col">
-      <main className="flex flex-col gap-4 pl-12 mt-12">
+      <main className="flex flex-col gap-4 min-sm:pl-12 max-sm:text-center mt-12">
         <h1 className="text-[#0B132A] text-3xl/relaxed font-heading font-bold min-lg:w-8/12 ">
           Design Your Dream Home, Powered by AI
         </h1>
@@ -15,10 +15,10 @@ const HeroSection = () => {
           transform your space.
         </p>
         <div className="flex gap-4 max-sm:justify-center">
-          <button className="bg-button rounded-lg heroSectionButtons text-white text-base h-12 px-10 font-bold font-heading">
+          <button className="bg-button rounded-lg heroSectionButtons cursor-pointer text-white text-base h-12 px-10 font-bold font-heading">
             Start Planning
           </button>
-          <button className="bg-button rounded-lg heroSectionButtons text-white text-base h-12 px-10 font-bold font-heading">
+          <button className="bg-button rounded-lg heroSectionButtons cursor-pointer text-white text-base h-12 px-10 font-bold font-heading">
             Know More
           </button>
         </div>

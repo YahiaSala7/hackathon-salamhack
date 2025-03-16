@@ -21,16 +21,16 @@ const Header = () => {
             </div>
             <div className="flex items-center justify-around px-10 grow gap-2.5">
               <Link
-                href={"#"}
+                href={"#howItWorks"}
                 className="block text-2xl before:hidden text-white max-lg:text-lg font-text before:content-[''] before:w-full before:h-1 before:bg-button before:absolute before:bottom-[-30px] before:left-0 before:rounded-3xl relative hover:before:block"
               >
-                Features
+                How it works
               </Link>
               <Link
                 href={"#"}
                 className="block text-2xl before:hidden text-white max-lg:text-lg font-text before:content-[''] before:w-full before:h-1 before:bg-white before:absolute before:bottom-[-30px] before:left-0 before:rounded-3xl relative hover:before:block"
               >
-                How it works
+                Features
               </Link>
               <Link
                 href={"#"}
