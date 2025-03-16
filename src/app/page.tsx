@@ -1,10 +1,14 @@
-import ExampleComponent from "@/Components/ExampleComponent";
-import Image from "next/image";
+import Header from "@/Components/Home/Header";
+import HeroSection from "@/Components/Home/HeroSection";
+import HowItWorks from "@/Components/Home/HowItWorks";
 
 export default function Home() {
   return (
     <>
-      <ExampleComponent />
+      <Header />
+      <HeroSection />
+      <HowItWorks />
+      {/* <Features /> */}
     </>
   );
 }
