@@ -13,16 +13,16 @@ namespace SalamHack.Services
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IFurnitureService, FurnitureService>();
-            services.AddScoped<IPriceComparisonService, PriceComparisonService>();
             services.AddScoped<ILayoutService, LayoutService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IAIRecommendationService, AIRecommendationService>();
-            services.AddScoped<IPriceSearchService, PriceSearchService>();
+
 
             // Register external builder.Services
 
-            services.AddScoped<IAIClient, AIClient>();
-            services.AddScoped<IExternalPriceApiClient, ExternalPriceApiClient>();
+            services.AddSingleton<IAIClient, OpenAIClient>();
+            services.AddScoped<IPriceSearchService, EnhancedPriceService>();
+            services.AddScoped<IPriceComparisonService, EnhancedPriceService>();
             services.AddScoped<IGeocodingService, GeocodingService>();
             return services;
 

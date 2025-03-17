@@ -17,7 +17,11 @@ namespace SalamHack.Data.Repositories
         {
             return await _context.PriceComparisons.FindAsync(comparisonId);
         }
-
+        public async Task<PriceComparison> GetByFurnitureIdAndStoreAsync(int furnitureId, string storeName)
+        {
+            return await _context.PriceComparisons
+                .FirstOrDefaultAsync(pc => pc.FurnitureId == furnitureId && pc.StoreName == storeName);
+        }
         public async Task<List<PriceComparison>> GetByFurnitureIdAsync(int furnitureId)
         {
             return await _context.PriceComparisons

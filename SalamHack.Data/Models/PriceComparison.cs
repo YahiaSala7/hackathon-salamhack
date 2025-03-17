@@ -20,6 +20,7 @@ namespace SalamHack.Models
 
         [Required, StringLength(500)]
         public string Url { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         // Navigation property
         public virtual Furniture Furniture { get; set; }

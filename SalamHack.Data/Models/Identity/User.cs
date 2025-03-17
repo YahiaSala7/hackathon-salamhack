@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EntityFrameworkCore.EncryptColumn.Attribute;
+﻿using EntityFrameworkCore.EncryptColumn.Attribute;
+using Microsoft.AspNetCore.Identity;
 using SalamHack.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace SalamHack.Data.Entity.Identity

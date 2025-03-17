@@ -1,4 +1,5 @@
-﻿using SalamHack.Data.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SalamHack.Data.Repositories.Interfaces;
 using SalamHack.Models;
 
 namespace SalamHack.Data.Repositories
@@ -31,14 +32,14 @@ namespace SalamHack.Data.Repositories
         public async Task<List<Project>> GetByUserIdAsync(int userId)
         {
             return await _context.Projects
-                .Where(p => p.UserId == userId)
+                .Where(p => p.ProjectId == userId)
                 .ToListAsync();
         }
 
         public async Task<Project> CreateAsync(Project project)
         {
-            project.CreatedAt = DateTime.UtcNow;
-            project.UpdatedAt = DateTime.UtcNow;
+            // project.CreatedAt = DateTime.UtcNow;
+            // project.UpdatedAt = DateTime.UtcNow;
 
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
@@ -48,7 +49,7 @@ namespace SalamHack.Data.Repositories
 
         public async Task<Project> UpdateAsync(Project project)
         {
-            project.UpdatedAt = DateTime.UtcNow;
+            // project.UpdatedAt = DateTime.UtcNow;
 
             _context.Projects.Update(project);
             await _context.SaveChangesAsync();

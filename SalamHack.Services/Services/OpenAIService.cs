@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SalamHack.Data.DTOS.Recommendation;
 using SalamHack.Models;
+using SalamHack.Services.Interfaces;
 using System.Text;
 
 namespace SalamHack.Services.Services
