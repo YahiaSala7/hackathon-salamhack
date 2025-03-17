@@ -9,7 +9,7 @@ namespace SalamHack.Services.Interfaces
         Task<List<LayoutSummaryDto>> GetProjectLayoutsAsync(int projectId);
         Task<LayoutDto> CreateLayoutAsync(LayoutCreateDto layoutCreateDto);
         Task<LayoutDto> SetLayoutAsFinalAsync(int layoutId);
-        Task<LayoutDto> GenerateLayoutAsync(LayoutGenerationRequestDto generationRequestDto);
+        // Task<LayoutDto> GenerateLayoutAsync(LayoutGenerationRequestDto generationRequestDto);
         Task<bool> DeleteLayoutAsync(int layoutId);
     }
 }

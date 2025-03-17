@@ -70,28 +70,28 @@ namespace SalamHack.Services.Services
             return _mapper.Map<LayoutDto>(updatedLayout);
         }
 
-        public async Task<LayoutDto> GenerateLayoutAsync(LayoutGenerationRequestDto generationRequestDto)
-        {
-            // الحصول على تفاصيل المشروع بما في ذلك الغرف والأثاث
-            var project = await _projectRepository.GetProjectWithDetailsAsync(generationRequestDto.ProjectId);
-            if (project == null)
-                throw new ArgumentException("Project not found");
+        /*  public async Task<LayoutDto> GenerateLayoutAsync(LayoutGenerationRequestDto generationRequestDto)
+          {
+              // الحصول على تفاصيل المشروع بما في ذلك الغرف والأثاث
+              var project = await _projectRepository.GetProjectWithDetailsAsync(generationRequestDto.ProjectId);
+              if (project == null)
+                  throw new ArgumentException("Project not found");
 
-            // استخدام خدمة الذكاء الاصطناعي لتوليد صورة التصميم بناءً على تفاصيل المشروع
-            string layoutImageData = await _aiClient.GenerateLayoutImageAsync(generationRequestDto.ProjectId, generationRequestDto.SpecialInstructions);
+              // استخدام خدمة الذكاء الاصطناعي لتوليد صورة التصميم بناءً على تفاصيل المشروع
+              string layoutImageData = await _aiClient.GenerateLayoutImageAsync(generationRequestDto.ProjectId, generationRequestDto.SpecialInstructions);
 
-            // إنشاء وحفظ التصميم الجديد
-            var layoutEntity = new Layout
-            {
-                ProjectId = generationRequestDto.ProjectId,
-                LayoutImage = layoutImageData,
-                IsFinal = false,
-                //  CreatedDate = DateTime.UtcNow
-            };
+              // إنشاء وحفظ التصميم الجديد
+              var layoutEntity = new Layout
+              {
+                  ProjectId = generationRequestDto.ProjectId,
+                  LayoutImage = layoutImageData,
+                  IsFinal = false,
+                  //  CreatedDate = DateTime.UtcNow
+              };
 
-            var createdLayout = await _layoutRepository.CreateAsync(layoutEntity);
-            return _mapper.Map<LayoutDto>(createdLayout);
-        }
+              var createdLayout = await _layoutRepository.CreateAsync(layoutEntity);
+              return _mapper.Map<LayoutDto>(createdLayout);
+          }*/
 
         public async Task<bool> DeleteLayoutAsync(int layoutId)
         {

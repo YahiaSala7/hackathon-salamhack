@@ -27,6 +27,15 @@ namespace SalamHack.Data.Repositories
                 .Include(f => f.PriceComparisons)
                 .ToListAsync();
         }
+        public async Task<Room> GetRoomByFurnitureIdAsync(int furnitureId)
+        {
+            var furniture = await GetByIdAsync(furnitureId);
+            if (furniture == null)
+                return null;
+
+            // Assuming your ApplicationDbContext contains a DbSet<Room> named Rooms
+            return await _context.Rooms.FindAsync(furniture.RoomId);
+        }
 
         public async Task<Furniture> CreateAsync(Furniture furniture)
         {

@@ -1,9 +1,13 @@
-﻿namespace SalamHack.Data.DTOS.Recommendation
+﻿using SalamHack.Data.DTOS.Furniture;
+using SalamHack.Data.DTOS.Room;
+
+namespace SalamHack.Data.DTOS.Recommendation
 {
     public class AIRecommendationResponseDto
     {
         public List<RoomBudgetRecommendationDto> RoomBudgetRecommendations { get; set; } = new List<RoomBudgetRecommendationDto>();
         public List<FurnitureRecommendationDto> FurnitureRecommendations { get; set; } = new List<FurnitureRecommendationDto>();
+        public List<RoomRecommendationDto> RoomRecommendations { get; set; } = new List<RoomRecommendationDto>();
         public decimal TotalBudgetUsed { get; set; }
         public string GeneralRecommendation { get; set; }
     }
@@ -13,6 +17,7 @@
         public int RoomId { get; set; }
         public decimal RecommendedBudget { get; set; }
         public string? RecommendationReason { get; set; }
+        public List<FurnitureDto> RecommendedFurniture { get; set; } = new List<FurnitureDto>();
     }
 
     public class FurnitureRecommendationDto

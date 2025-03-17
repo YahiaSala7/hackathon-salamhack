@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using SalamHack.Data.DTOS.Furniture;
 using SalamHack.Data.DTOS.PriceComparison;
+using SalamHack.Data.DTOS.Recommendation;
 using SalamHack.Data.DTOS.Store;
 using SalamHack.Data.Repositories.Interfaces;
 using SalamHack.Models;
@@ -71,10 +72,17 @@ namespace SalamHack.Services.Services
             if (recentComparisons.Any())
                 return _mapper.Map<List<PriceComparisonDto>>(recentComparisons);
 
-            var room = await _furnitureRepository.GetByIdAsync(furniture.RoomId);
-            var project = await _projectRepository.GetByIdAsync(room.ProjectId);
+            var room = await _furnitureRepository.GetRoomByFurnitureIdAsync(furnitureId);
+            if (room == null)
+                throw new ArgumentException("Room not found for the furniture");
 
-            var (onlinePrices, nearbyStores) = await GetPriceDataAsync(furniture, project);
+            var project = await _projectRepository.GetByIdAsync(room.ProjectId);
+            if (project == null)
+                throw new ArgumentException("Project not found for the room");
+
+            var priceData = await GetPriceDataAsync(furniture, project);
+            var onlinePrices = priceData.OnlinePrices;
+            var nearbyStores = priceData.NearbyStores;
 
             var newComparisons = await ProcessAndStoreComparisons(
                 furnitureId,
@@ -393,7 +401,7 @@ namespace SalamHack.Services.Services
 
         private void ApplyRecommendations(
             List<PriceComparisonDto> comparisons,
-            AIRecommendation aiRecommendation,
+            AIRecommendationResponseDto aiRecommendation,
             string furnitureName)
         {
             foreach (var comparison in comparisons)
