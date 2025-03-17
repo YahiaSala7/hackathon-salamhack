@@ -177,14 +177,12 @@ namespace SalamHack.Services.Services
             {
                 // Parse the JSON response from OpenAI
                 var responseObject = JsonSerializer.Deserialize<JsonElement>(response);
-
                 var result = new AIRecommendationResponseDto
                 {
                     RoomRecommendations = new List<RoomRecommendationDto>(),
                     TotalBudgetUsed = responseObject.GetProperty("totalBudgetUsed").GetDecimal(),
                     GeneralRecommendation = responseObject.GetProperty("generalRecommendation").GetString()
                 };
-
                 var recommendations = responseObject.GetProperty("roomRecommendations");
                 foreach (var roomRec in recommendations.EnumerateArray())
                 {
@@ -192,25 +190,25 @@ namespace SalamHack.Services.Services
                     {
                         RoomType = roomRec.GetProperty("roomType").GetString(),
                         RecommendedBudget = roomRec.GetProperty("recommendedBudget").GetDecimal(),
-                        RecommendedFurniture = new List<Data.DTOS.Furniture.FurnitureRecommendationDto>() // Changed from FurnitureDto
+                        // Choose ONE consistent type - I'm choosing the Furniture namespace version
+                        RecommendedFurniture = new List<Data.DTOS.Furniture.FurnitureRecommendationDto>()
                     };
-
                     var furniture = roomRec.GetProperty("recommendedFurniture");
                     foreach (var item in furniture.EnumerateArray())
                     {
-                        roomRecommendation.RecommendedFurniture.Add(new Data.DTOS.Recommendation.FurnitureRecommendationDto // Changed from FurnitureDto
+                        // Use the SAME type as declared in the list
+                        roomRecommendation.RecommendedFurniture.Add(new Data.DTOS.Furniture.FurnitureRecommendationDto
                         {
                             Name = item.GetProperty("name").GetString(),
                             Category = item.GetProperty("category").GetString(),
                             EstimatedPrice = item.GetProperty("estimatedPrice").GetDecimal(),
                             RecommendationReason = item.GetProperty("recommendationReason").GetString(),
+                            // Only include this if the class has this property
                             ImageUrl = item.GetProperty("imageUrl").GetString()
                         });
                     }
-
                     result.RoomRecommendations.Add(roomRecommendation);
                 }
-
                 return result;
             }
             catch (Exception ex)

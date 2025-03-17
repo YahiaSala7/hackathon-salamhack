@@ -29,6 +29,7 @@ namespace SalamHack.Data.DTOS.Recommendation
         public string PreferredStore { get; set; } = string.Empty;
         public string? RecommendationReason { get; set; }
         public bool IsApproved { get; set; } = false;
+        public string MapUrl { get; set; }
     }
 }
 

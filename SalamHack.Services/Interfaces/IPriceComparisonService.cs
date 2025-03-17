@@ -10,5 +10,6 @@ namespace SalamHack.Services.Interfaces
         Task<PriceComparisonDto> CreatePriceComparisonAsync(PriceComparisonCreateDto priceComparisonCreateDto);
         Task<PriceComparisonDto> UpdatePriceComparisonAsync(int comparisonId, PriceComparisonCreateDto priceComparisonUpdateDto);
         Task<bool> DeletePriceComparisonAsync(int comparisonId);
+        Task<List<PriceComparisonDto>> GetAIEnhancedPriceComparisonsAsync(int furnitureId, int projectId);
     }
 }
