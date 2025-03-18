@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${rubik.variable} `}>
-      <body className={"antialiased h-full"}>{children}</body>
+      <body className={"antialiased h-full bg-[#F0F4F8]"}>{children}</body>
     </html>
   );
 }
