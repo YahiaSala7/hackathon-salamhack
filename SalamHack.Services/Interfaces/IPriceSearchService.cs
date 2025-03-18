@@ -11,4 +11,9 @@ namespace SalamHack.Services.Interfaces
         Task<List<FurnitureAvailabilityDto>> FindFurnitureAvailabilityAsync(int furnitureId, int projectId, int radiusKm = 20);
         Task<List<PriceComparisonDto>> SearchPriceComparisonsAsync(string furnitureName, string category);
     }
+    public class PriceApiSettings
+    {
+        public string BaseUrl { get; set; }
+        public string ApiKey { get; set; }
+    }
 }
