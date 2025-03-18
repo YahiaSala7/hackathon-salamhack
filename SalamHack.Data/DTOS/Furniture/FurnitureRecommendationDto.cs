@@ -1,4 +1,4 @@
-﻿namespace SalamHack.Data.DTOS.Furniture
+﻿/*namespace SalamHack.Data.DTOS.Furniture
 {
     public class FurnitureRecommendationDto
     {
@@ -10,3 +10,4 @@
     }
 }
 
+*/

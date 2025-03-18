@@ -30,6 +30,7 @@ namespace SalamHack.Data.DTOS.Recommendation
         public string? RecommendationReason { get; set; }
         public bool IsApproved { get; set; } = false;
         public string MapUrl { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }
 

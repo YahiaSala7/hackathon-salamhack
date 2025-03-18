@@ -1,4 +1,4 @@
-﻿using SalamHack.Data.DTOS.Furniture;
+﻿using SalamHack.Data.DTOS.Recommendation;
 
 namespace SalamHack.Data.DTOS.Room
 {

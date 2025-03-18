@@ -183,6 +183,7 @@ namespace SalamHack.Services.Services
                     TotalBudgetUsed = responseObject.GetProperty("totalBudgetUsed").GetDecimal(),
                     GeneralRecommendation = responseObject.GetProperty("generalRecommendation").GetString()
                 };
+
                 var recommendations = responseObject.GetProperty("roomRecommendations");
                 foreach (var roomRec in recommendations.EnumerateArray())
                 {
@@ -190,25 +191,37 @@ namespace SalamHack.Services.Services
                     {
                         RoomType = roomRec.GetProperty("roomType").GetString(),
                         RecommendedBudget = roomRec.GetProperty("recommendedBudget").GetDecimal(),
-                        // Choose ONE consistent type - I'm choosing the Furniture namespace version
-                        RecommendedFurniture = new List<Data.DTOS.Furniture.FurnitureRecommendationDto>()
+                        // تأكد من استخدام النوع الصحيح هنا بناءً على تعريف RoomRecommendationDto
+                        RecommendedFurniture = new List<FurnitureRecommendationDto>()
                     };
+
                     var furniture = roomRec.GetProperty("recommendedFurniture");
                     foreach (var item in furniture.EnumerateArray())
                     {
-                        // Use the SAME type as declared in the list
-                        roomRecommendation.RecommendedFurniture.Add(new Data.DTOS.Furniture.FurnitureRecommendationDto
+                        // إنشاء مثيل جديد من FurnitureRecommendationDto - لاحظ كلمة new
+                        roomRecommendation.RecommendedFurniture.Add(new FurnitureRecommendationDto
                         {
+                            // استخدم فقط الخصائص المتوفرة في FurnitureRecommendationDto
+                            // استناداً إلى تعريف الفئة في SalamHack.Data.DTOS.Recommendation
                             Name = item.GetProperty("name").GetString(),
                             Category = item.GetProperty("category").GetString(),
                             EstimatedPrice = item.GetProperty("estimatedPrice").GetDecimal(),
-                            RecommendationReason = item.GetProperty("recommendationReason").GetString(),
-                            // Only include this if the class has this property
-                            ImageUrl = item.GetProperty("imageUrl").GetString()
+                            RecommendationReason = item.TryGetProperty("recommendationReason", out var reason) ?
+                                reason.GetString() : null,
+                            // تحقق فقط من الخصائص الموجودة في الفئة المستخدمة
+                            // إذا كانت MapUrl موجودة في FurnitureRecommendationDto
+                            MapUrl = item.TryGetProperty("mapUrl", out var mapUrl) ?
+                                mapUrl.GetString() : string.Empty,
+                            // قم بتعيين الخصائص الأخرى حسب تعريف الفئة
+                            PreferredStore = item.TryGetProperty("preferredStore", out var store) ?
+                                store.GetString() : string.Empty
+                            // لا تضيف ImageUrl إلا إذا كانت موجودة في تعريف الفئة
                         });
                     }
+
                     result.RoomRecommendations.Add(roomRecommendation);
                 }
+
                 return result;
             }
             catch (Exception ex)
