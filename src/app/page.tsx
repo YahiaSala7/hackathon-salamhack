@@ -1,6 +1,8 @@
+import Features from "@/Components/Home/Features";
 import Header from "@/Components/Home/Header";
 import HeroSection from "@/Components/Home/HeroSection";
 import HowItWorks from "@/Components/Home/HowItWorks";
+import JoinUs from "@/Components/Home/JoinUs";
 
 export default function Home() {
   return (
@@ -8,7 +10,8 @@ export default function Home() {
       <Header />
       <HeroSection />
       <HowItWorks />
-      {/* <Features /> */}
+      <Features />
+      <JoinUs />
     </>
   );
 }
