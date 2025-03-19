@@ -1,4 +1,4 @@
-﻿/*namespace SalamHack.DTOs
+﻿namespace SalamHack.DTOs
 {
     // DTO للمستخدم
     public class UserDto
@@ -10,4 +10,3 @@
 }
 
 
-*/

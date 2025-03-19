@@ -73,7 +73,7 @@ namespace SalamHack.Services.Services
                             Category = recommendation.Category,
                             Price = recommendation.EstimatedPrice,
                             StoreLink = recommendation.PreferredStore,
-                            //  Description = recommendation.RecommendationReason
+                            Description = recommendation.RecommendationReason
                         };
                         await _furnitureRepository.CreateAsync(newFurniture);
                     }
@@ -95,7 +95,7 @@ namespace SalamHack.Services.Services
                         await _roomRepository.UpdateAsync(room);
 
                         // Invalidate cache for updated room
-                        //   _cache.Remove($"ai_recommendations_{projectId}_{room.Id}");
+                        _cache.Remove($"ai_recommendations_{projectId}_{room.RoomId}");
                     }
                 }
             }

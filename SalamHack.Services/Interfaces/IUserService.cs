@@ -1,5 +1,4 @@
 ﻿/*using SalamHack.DTOs;
-using SalamHack.Models;
 
 namespace SalamHack.Services.Interfaces
 {

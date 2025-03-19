@@ -1,5 +1,4 @@
 ﻿/*using SalamHack.Data.Entity.Identity;
-using SalamHack.Data.Repositry.interfaces;
 
 namespace SalamHack.Services
 {
@@ -40,7 +39,7 @@ namespace SalamHack.Services
             return await _userRepository.DeleteAsync(userId);
         }
 
-   
+
         private string GenerateSalt()
         {
             return Guid.NewGuid().ToString();

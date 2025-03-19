@@ -1,4 +1,4 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 
 namespace SalamHack.DTOs
@@ -17,4 +17,3 @@ namespace SalamHack.DTOs
 }
 
 
-*/
