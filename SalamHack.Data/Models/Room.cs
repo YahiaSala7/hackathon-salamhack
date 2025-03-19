@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalamHack.Models
 {
@@ -14,10 +15,10 @@ namespace SalamHack.Models
 
         [Required, StringLength(50)]
         public string RoomType { get; set; } // Living Room, Bedroom, Kitchen, etc.
-
+        [Precision(18, 2)]
         [Required]
         public decimal RoomSize { get; set; } // in square meters
-
+        [Precision(18, 2)]
         [Required]
         public decimal RoomBudget { get; set; }
 

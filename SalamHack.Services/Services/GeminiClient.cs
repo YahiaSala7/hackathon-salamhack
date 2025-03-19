@@ -5,6 +5,336 @@ using SalamHack.Data.DTOS.Room;
 using SalamHack.Services.Interfaces;
 using System.Text;
 using System.Text.Json;
+
+namespace SalamHack.Services.Services
+{
+
+    public class GeminiClient : IAIClient
+    {
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
+        private readonly IProjectService _projectService;
+        private readonly IRoomService _roomService;
+
+        private readonly string _apiKey;
+        private readonly string _apiUrl;
+
+        public GeminiClient(
+            IHttpClientFactory httpClientFactory,
+            IConfiguration configuration,
+            IProjectService projectService,
+            IRoomService roomService)
+        {
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
+            _projectService = projectService;
+            _roomService = roomService;
+
+            _apiKey = _configuration["Gemini:ApiKey"];
+            _apiUrl = _configuration["Gemini:ApiUrl"];
+        }
+
+        public async Task<AIRecommendationResponseDto> GetRecommendationsAsync(int projectId, int? roomId = null)
+        {
+            // Get project details
+            var projectDetails = await _projectService.GetProjectDetailsAsync(projectId);
+
+            // Prepare AI prompt based on project (and optional room) details
+            string prompt = GenerateRecommendationPrompt(projectDetails, roomId);
+
+            // Make API call to Gemini
+            var response = await MakeGeminiRequestAsync(prompt);
+
+            // Parse and map the AI response to our DTO
+            return ParseAIRecommendationResponse(response, projectDetails);
+        }
+
+        public async Task<string> GenerateReportAsync(int projectId, string additionalNotes = null)
+        {
+            // Get complete project details
+            var projectDetails = await _projectService.GetProjectDetailsAsync(projectId);
+
+            // Prepare AI prompt for report generation
+            string prompt = GenerateReportPrompt(projectDetails, additionalNotes);
+
+            // Make API call to Gemini
+            var response = await MakeGeminiRequestAsync(prompt);
+
+            // Format response into a proper report structure
+            return FormatReportResponse(response, projectDetails);
+        }
+
+        private string GenerateRecommendationPrompt(ProjectDetailDto project, int? roomId)
+        {
+            StringBuilder prompt = new StringBuilder();
+            prompt.AppendLine("Generate furniture and appliance recommendations based on the following details:");
+            prompt.AppendLine($"Budget: ${project.Budget}");
+            prompt.AppendLine($"Home Size: {project.HomeSize}");
+            prompt.AppendLine($"Room Count: {project.RoomCount}");
+            prompt.AppendLine($"Location: {project.Location}");
+            prompt.AppendLine($"Style Preference: {project.StylePreference}");
+
+            if (roomId.HasValue)
+            {
+                var room = project.Rooms.Find(r => r.RoomId == roomId.Value);
+                if (room != null)
+                {
+                    prompt.AppendLine($"Room Type: {room.RoomType}");
+                    prompt.AppendLine($"Room Size: {room.RoomSize} sqm");
+                    prompt.AppendLine($"Room Budget: ${room.RoomBudget}");
+                }
+            }
+
+            prompt.AppendLine("Please provide recommendations in JSON format with the following structure:");
+            prompt.AppendLine("{");
+            prompt.AppendLine("  \"roomRecommendations\": [");
+            prompt.AppendLine("    {");
+            prompt.AppendLine("      \"roomType\": \"Living Room\",");
+            prompt.AppendLine("      \"recommendedBudget\": 2000,");
+            prompt.AppendLine("      \"recommendedFurniture\": [");
+            prompt.AppendLine("        {");
+            prompt.AppendLine("          \"name\": \"Sofa\",");
+            prompt.AppendLine("          \"category\": \"Seating\",");
+            prompt.AppendLine("          \"estimatedPrice\": 800,");
+            prompt.AppendLine("          \"recommendationReason\": \"Matches modern style and provides comfort\",");
+            prompt.AppendLine("          \"imageUrl\": \"\"");
+            prompt.AppendLine("        }");
+            prompt.AppendLine("      ]");
+            prompt.AppendLine("    }");
+            prompt.AppendLine("  ],");
+            prompt.AppendLine("  \"totalBudgetUsed\": 5000,");
+            prompt.AppendLine("  \"generalRecommendation\": \"Overall recommendation text\"");
+            prompt.AppendLine("}");
+
+            return prompt.ToString();
+        }
+
+        private string GenerateReportPrompt(ProjectDetailDto project, string additionalNotes)
+        {
+            StringBuilder prompt = new StringBuilder();
+            prompt.AppendLine("Generate a comprehensive home setup report based on the following details:");
+            prompt.AppendLine($"Budget: ${project.Budget}");
+            prompt.AppendLine($"Home Size: {project.HomeSize}");
+            prompt.AppendLine($"Room Count: {project.RoomCount}");
+            prompt.AppendLine($"Location: {project.Location}");
+            prompt.AppendLine($"Style Preference: {project.StylePreference}");
+
+            if (project.Rooms != null && project.Rooms.Count > 0)
+            {
+                prompt.AppendLine("The home includes the following rooms with furniture:");
+
+                foreach (var room in project.Rooms)
+                {
+                    prompt.AppendLine($"- {room.RoomType} ({room.RoomSize} sqm, Budget: ${room.RoomBudget}) containing:");
+                    if (room.Furniture != null)
+                    {
+                        foreach (var furniture in room.Furniture)
+                        {
+                            prompt.AppendLine($"  * {furniture.Name} ({furniture.Category}, ${furniture.Price})");
+                            if (furniture.PriceComparisons != null && furniture.PriceComparisons.Count > 0)
+                            {
+                                prompt.AppendLine("    Price comparisons:");
+                                foreach (var comparison in furniture.PriceComparisons)
+                                {
+                                    prompt.AppendLine($"    - {comparison.StoreName}: ${comparison.Price}");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(additionalNotes))
+            {
+                prompt.AppendLine($"Additional notes: {additionalNotes}");
+            }
+
+            prompt.AppendLine("Generate a detailed report with the following sections:");
+            prompt.AppendLine("1. Executive Summary");
+            prompt.AppendLine("2. Budget Breakdown and Analysis");
+            prompt.AppendLine("3. Room-by-Room Overview with Furniture Recommendations");
+            prompt.AppendLine("4. Money-Saving Opportunities");
+            prompt.AppendLine("5. Style Consistency Tips");
+            prompt.AppendLine("6. Recommended Future Purchases");
+            prompt.AppendLine("7. Conclusion");
+
+            return prompt.ToString();
+        }
+
+        private AIRecommendationResponseDto ParseAIRecommendationResponse(string response, ProjectDetailDto projectDetails)
+        {
+            try
+            {
+                // Parse the JSON response from Gemini
+                var responseObject = JsonSerializer.Deserialize<JsonElement>(response);
+                var result = new AIRecommendationResponseDto
+                {
+                    RoomRecommendations = new List<RoomRecommendationDto>(),
+                    TotalBudgetUsed = responseObject.GetProperty("totalBudgetUsed").GetDecimal(),
+                    GeneralRecommendation = responseObject.GetProperty("generalRecommendation").GetString()
+                };
+
+                var recommendations = responseObject.GetProperty("roomRecommendations");
+                foreach (var roomRec in recommendations.EnumerateArray())
+                {
+                    var roomRecommendation = new RoomRecommendationDto
+                    {
+                        RoomType = roomRec.GetProperty("roomType").GetString(),
+                        RecommendedBudget = roomRec.GetProperty("recommendedBudget").GetDecimal(),
+                        RecommendedFurniture = new List<FurnitureRecommendationDto>()
+                    };
+
+                    var furniture = roomRec.GetProperty("recommendedFurniture");
+                    foreach (var item in furniture.EnumerateArray())
+                    {
+                        roomRecommendation.RecommendedFurniture.Add(new FurnitureRecommendationDto
+                        {
+                            Name = item.GetProperty("name").GetString(),
+                            Category = item.GetProperty("category").GetString(),
+                            EstimatedPrice = item.GetProperty("estimatedPrice").GetDecimal(),
+                            RecommendationReason = item.TryGetProperty("recommendationReason", out var reason) ?
+                                reason.GetString() : null,
+                            MapUrl = item.TryGetProperty("mapUrl", out var mapUrl) ?
+                                mapUrl.GetString() : string.Empty,
+                            PreferredStore = item.TryGetProperty("preferredStore", out var store) ?
+                                store.GetString() : string.Empty
+                        });
+                    }
+
+                    result.RoomRecommendations.Add(roomRecommendation);
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // Log the error and return a fallback response
+                Console.WriteLine($"Error parsing AI response: {ex.Message}");
+                return new AIRecommendationResponseDto
+                {
+                    RoomRecommendations = new List<RoomRecommendationDto>(),
+                    TotalBudgetUsed = 0,
+                    GeneralRecommendation = "Unable to parse AI recommendations. Please try again."
+                };
+            }
+        }
+
+        private string FormatReportResponse(string response, ProjectDetailDto projectDetails)
+        {
+            // Simply return the response as it should already be formatted correctly
+            return response;
+        }
+
+        private string GenerateLayoutImagePrompt(ProjectDetailDto project, string specialInstructions)
+        {
+            StringBuilder prompt = new StringBuilder();
+            prompt.AppendLine($"Create a 2D floor plan layout for a {project.HomeSize} home with {project.RoomCount} rooms in {project.StylePreference} style.");
+
+            if (project.Rooms != null && project.Rooms.Count > 0)
+            {
+                prompt.AppendLine("The home includes the following rooms with furniture:");
+
+                foreach (var room in project.Rooms)
+                {
+                    prompt.AppendLine($"- {room.RoomType} ({room.RoomSize} sqm) containing:");
+                    if (room.Furniture != null)
+                    {
+                        foreach (var furniture in room.Furniture)
+                        {
+                            prompt.AppendLine($"  * {furniture.Name} ({furniture.Category})");
+                        }
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(specialInstructions))
+            {
+                prompt.AppendLine($"Special instructions: {specialInstructions}");
+            }
+
+            prompt.AppendLine("Create a clean, top-down 2D floor plan with furniture placement and room labels. Use a clean, modern design with a white background and blue lines for walls.");
+
+            return prompt.ToString();
+        }
+
+        private async Task<string> MakeGeminiRequestAsync(string prompt)
+        {
+            if (string.IsNullOrWhiteSpace(prompt)) throw new ArgumentException("Prompt cannot be null or empty.", nameof(prompt));
+
+            using var httpClient = _httpClientFactory.CreateClient();
+
+            // Gemini requires API key as a query parameter instead of Authorization header
+            var requestUrl = $"{_apiUrl}?key={_apiKey}";
+
+            // Gemini request structure is different from OpenAI
+            var requestBody = new
+            {
+                contents = new[]
+                {
+                new {
+                    role = "user",
+                    parts = new[]
+                    {
+                        new { text = prompt }
+                    }
+                }
+            },
+                generationConfig = new
+                {
+                    temperature = 0.7,
+                    topK = 40,
+                    topP = 0.95,
+                    maxOutputTokens = 8192,
+                    responseMimeType = "application/json"
+                },
+                systemInstruction = new
+                {
+                    parts = new[]
+                    {
+                    new { text = "You are an interior design and home planning AI assistant that provides detailed, specific recommendations based on budget, style, and room requirements. Format your responses in the requested structure." }
+                }
+                }
+            };
+
+            var requestContent = new StringContent(
+                JsonSerializer.Serialize(requestBody),
+                Encoding.UTF8,
+                "application/json");
+
+            try
+            {
+                using var response = await httpClient.PostAsync(requestUrl, requestContent);
+                response.EnsureSuccessStatusCode();
+
+                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                using var jsonDoc = await JsonDocument.ParseAsync(responseStream);
+
+                // Gemini's response structure is different from OpenAI
+                var content = jsonDoc.RootElement
+                                .GetProperty("candidates")[0]
+                                .GetProperty("content")
+                                .GetProperty("parts")[0]
+                                .GetProperty("text")
+                                .GetString();
+
+                if (string.IsNullOrWhiteSpace(content))
+                    throw new InvalidOperationException("The response from Gemini was empty or invalid.");
+
+                return content;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception("An error occurred while calling the Gemini API.", ex);
+            }
+        }
+    }
+}/*using Microsoft.Extensions.Configuration;
+using SalamHack.Data.DTOS.Project;
+using SalamHack.Data.DTOS.Recommendation;
+using SalamHack.Data.DTOS.Room;
+using SalamHack.Services.Interfaces;
+using System.Text;
+using System.Text.Json;
 namespace SalamHack.Services.Services
 {
     public class OpenAIClient : IAIClient
@@ -47,7 +377,7 @@ namespace SalamHack.Services.Services
             return ParseAIRecommendationResponse(response, projectDetails);
         }
 
-        /*  public async Task<string> GenerateLayoutImageAsync(int projectId, string specialInstructions = null)
+        *//*  public async Task<string> GenerateLayoutImageAsync(int projectId, string specialInstructions = null)
           {
               // Get project details including rooms and furniture
               var projectDetails = await _projectService.GetProjectDetailsAsync(projectId);
@@ -59,7 +389,7 @@ namespace SalamHack.Services.Services
               var imageUrl = await MakeDALLERequestAsync(prompt);
 
               return imageUrl;
-          }*/
+          }*//*
 
         public async Task<string> GenerateReportAsync(int projectId, string additionalNotes = null)
         {
@@ -325,7 +655,7 @@ namespace SalamHack.Services.Services
 
 
 
-        /*  private async Task<string> MakeDALLERequestAsync(string prompt)
+        *//*  private async Task<string> MakeDALLERequestAsync(string prompt)
           {
               var httpClient = _httpClientFactory.CreateClient();
               httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
@@ -414,7 +744,8 @@ namespace SalamHack.Services.Services
                // Simply return the response as it should already be formatted correctly
                // In a real implementation, we might want to further process this to improve formatting
                return response;
-           }*/
+           }*//*
     }
 }
 
+*/

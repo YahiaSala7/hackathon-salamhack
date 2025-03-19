@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalamHack.Models
@@ -18,7 +19,7 @@ namespace SalamHack.Models
 
         [Required, StringLength(50)]
         public string Category { get; set; } // Sofa, Bed, Table, etc.
-
+        [Precision(18, 2)]
         [Required]
         public decimal Price { get; set; }
 

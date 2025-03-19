@@ -41,7 +41,7 @@ namespace SalamHack.Services
             services.AddScoped<IAIRecommendationService, AIRecommendationService>();
 
             // تسجيل الخدمات الخارجية
-            services.AddScoped<IAIClient, OpenAIClient>();
+            services.AddScoped<IAIClient, GeminiClient>();
             services.AddScoped<IPriceSearchService, EnhancedPriceService>();
             services.AddScoped<IPriceComparisonService, EnhancedPriceService>();
             services.AddScoped<IGeocodingService, GeocodingService>();

@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using SalamHack.Data.Entity.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalamHack.Models
 {
@@ -8,9 +11,9 @@ namespace SalamHack.Models
         [Key]
         public int ProjectId { get; set; }
 
-        /*  [ForeignKey("User")]
-          public int UserId { get; set; }*/
-
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        [Precision(18, 2)]
         [Required]
         public decimal Budget { get; set; }
 
@@ -27,7 +30,7 @@ namespace SalamHack.Models
         public string StylePreference { get; set; } // Modern, Classic, Minimalist, etc.
 
 
-        // public virtual User User { get; set; }
+        public virtual User User { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
         public virtual ICollection<Layout> Layouts { get; set; }
         public virtual ICollection<Report> Reports { get; set; }

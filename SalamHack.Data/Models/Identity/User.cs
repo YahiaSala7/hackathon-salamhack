@@ -1,14 +1,14 @@
 ﻿using EntityFrameworkCore.EncryptColumn.Attribute;
-using Microsoft.AspNetCore.Identity;
 using SalamHack.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace SalamHack.Data.Entity.Identity
 {
-    public class User : IdentityUser<int>
+    public class User
     {
 
+        public int UserId { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
         public string? Address { get; set; }

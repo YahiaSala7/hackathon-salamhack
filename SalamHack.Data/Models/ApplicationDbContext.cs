@@ -24,17 +24,17 @@ namespace SalamHack.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure User entity
-            //modelBuilder.Entity<User>(entity =>
-            //{
-            //    entity.HasIndex(e => e.Email).IsUnique();
-            //    entity.HasIndex(e => e.Username).IsUnique();
+            //  Configure User entity
+            modelBuilder.Entity<User>(entity =>
+            {
+                // entity.HasIndex(e => e.Email).IsUnique();
+                //entity.HasIndex(e => e.Username).IsUnique();
 
-            //    entity.HasMany(e => e.Projects)
-            //        .WithOne(e => e.User)
-            //        .HasForeignKey(e => e.UserId)
-            //        .OnDelete(DeleteBehavior.Cascade);
-            //});
+                entity.HasMany(e => e.Projects)
+                    .WithOne(e => e.User)
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
             modelBuilder.Entity<Project>(entity =>
             {

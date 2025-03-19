@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SalamHack.Data.Entity.Identity;
+﻿using SalamHack.Data.Entity.Identity;
 using SalamHack.Data.Repositories.Interfaces;
 
 namespace SalamHack.Data.Repositories
@@ -18,10 +17,10 @@ namespace SalamHack.Data.Repositories
             return await _context.Users.FindAsync(userId);
         }
 
-        public async Task<User> GetByEmailAsync(string email)
+        /*public async Task<User> GetByEmailAsync(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-        }
+        }*/
 
         public async Task<User> CreateAsync(User user)
         {
