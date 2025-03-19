@@ -1,0 +1,51 @@
+/* Carousel custom styles */
+.sliderContainer :global(.slick-prev),
+.sliderContainer :global(.slick-next) {
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+}
+
+.sliderContainer :global(.slick-prev) {
+  left: -40px;
+}
+
+.sliderContainer :global(.slick-next) {
+  right: -40px;
+}
+
+.sliderContainer :global(.slick-prev:before),
+.sliderContainer :global(.slick-next:before) {
+  font-size: 40px;
+  color: #4285F4;
+}
+
+/* Card styles */
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Pie chart legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+} 

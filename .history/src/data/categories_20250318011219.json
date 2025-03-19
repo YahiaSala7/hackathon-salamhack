@@ -1,0 +1,78 @@
+{
+  "categories": [
+    {
+      "id": "living-room",
+      "name": "Living Room",
+      "color": "#4285F4",
+      "icon": "living-room-icon",
+      "description": "Furniture and accessories for living rooms",
+      "subcategories": [
+        "Sofas",
+        "Coffee Tables",
+        "TV Stands",
+        "Armchairs",
+        "Side Tables"
+      ]
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "color": "#34A853",
+      "icon": "kitchen-icon",
+      "description": "Kitchen furniture and storage solutions",
+      "subcategories": [
+        "Islands",
+        "Dining Sets",
+        "Storage Units",
+        "Bar Stools",
+        "Cabinets"
+      ]
+    },
+    {
+      "id": "bedroom",
+      "name": "Bedroom",
+      "color": "#FBBC05",
+      "icon": "bedroom-icon",
+      "description": "Bedroom furniture and accessories",
+      "subcategories": [
+        "Beds",
+        "Wardrobes",
+        "Dressers",
+        "Nightstands",
+        "Vanities"
+      ]
+    },
+    {
+      "id": "bathroom",
+      "name": "Bathroom",
+      "color": "#EA4335",
+      "icon": "bathroom-icon",
+      "description": "Bathroom furniture and fixtures",
+      "subcategories": [
+        "Vanities",
+        "Cabinets",
+        "Mirrors",
+        "Storage Units",
+        "Accessories"
+      ]
+    },
+    {
+      "id": "other-rooms",
+      "name": "Other Rooms",
+      "color": "#5F6368",
+      "icon": "other-rooms-icon",
+      "description": "Furniture for home office, study, and other spaces",
+      "subcategories": [
+        "Office Desks",
+        "Bookcases",
+        "Filing Cabinets",
+        "Study Tables",
+        "Room Dividers"
+      ]
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2024-03-17T12:00:00Z",
+    "version": "1.0"
+  }
+} 
