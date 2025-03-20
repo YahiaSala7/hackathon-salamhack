@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, FC } from "react";
+import { FC } from "react";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import { useForm } from "react-hook-form";
 import { FormData } from "@/types/formData";
@@ -218,6 +218,7 @@ const PhaseOne: FC<PhaseOneProps> = ({
             alt="Example image"
             width={200}
             height={200}
+            priority
           />
           <Breadcrumb pageName="Planning" />
         </div>
@@ -238,7 +239,8 @@ const PhaseOne: FC<PhaseOneProps> = ({
 
           <form
             onSubmit={onFormSubmit}
-            className="w-full max-w-xl mx-auto space-y-4">
+            className="w-full max-w-xl mx-auto space-y-4"
+          >
             <FormField label="Budget">
               <CombinedField
                 prefix="currency"
@@ -400,14 +402,16 @@ const PhaseOne: FC<PhaseOneProps> = ({
             <button
               type="submit"
               disabled={isPending}
-              className="w-full p-4 mt-2 text-xl text-white bg-button rounded-[10px] font-bold hover:bg-button/90 disabled:bg-button/50 cursor-pointer transition-colors shadow-[0_0_54px_rgba(56,120,255,0.3)]">
+              className="w-full p-4 mt-2 text-xl text-white bg-button rounded-[10px] font-bold hover:bg-button/90 disabled:bg-button/50 cursor-pointer transition-colors shadow-[0_0_54px_rgba(56,120,255,0.3)]"
+            >
               {isPending ? (
                 <div className="flex items-center justify-center gap-2">
                   <svg
                     className="w-5 h-5 animate-spin"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
-                    viewBox="0 0 24 24">
+                    viewBox="0 0 24 24"
+                  >
                     <circle
                       className="opacity-25"
                       cx="12"
