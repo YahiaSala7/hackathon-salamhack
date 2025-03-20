@@ -78,6 +78,8 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
   // Filter and sort products
   const filteredAndSortedProducts = React.useMemo(() => {
     let result = [...productsData];
+    console.log({ filteredAndSortedProducts });
+
     // Apply price filter
     if (filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) {
       result = result.filter(
@@ -139,7 +141,6 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
 
     return result;
   }, [filters, productsData, defaultCenter]);
-  // console.log(filteredAndSortedProducts);
 
   // Pagination
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -264,8 +265,8 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
 
         {/* Right Side - Product Display */}
         <div className="lg:col-span-3">
-          {viewMode === "card" && !isMobile ? (
-            <CardView
+          {viewMode === "table" && !isMobile ? (
+            <ProductTable
               items={currentItems}
               categoryColors={categoryColors}
               itemsPerPage={itemsPerPage}
@@ -274,7 +275,7 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
               onPageChange={handlePageChange}
             />
           ) : (
-            <ProductTable
+            <CardView
               items={currentItems}
               categoryColors={categoryColors}
               itemsPerPage={itemsPerPage}

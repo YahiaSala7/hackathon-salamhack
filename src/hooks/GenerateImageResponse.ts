@@ -1,17 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
 
 interface GenerateImageResponse {
-  imageUrl: string;
+  image: string; // Changed from imageUrl to image
 }
 
 interface GenerateImageRequest {
   prompt: string;
 }
 
+const API_BASE_URL = "https://designture.runasp.net/api/Plan";
+
 const generateImage = async (
   data: GenerateImageRequest
 ): Promise<GenerateImageResponse> => {
-  const response = await fetch("/api/generate-image", {
+  const response = await fetch(`${API_BASE_URL}/generate-image`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +25,8 @@ const generateImage = async (
     throw new Error("Failed to generate image");
   }
 
-  return response.json();
+  const result = await response.json();
+  return { image: result.image };
 };
 
 export const useImageGeneration = () => {

@@ -5,7 +5,7 @@ import { FormData } from "@/types/formData";
 import { Category } from "@/types/product";
 import { RecommendationsByCategory } from "@/types/recommendations";
 import { fakeRecommendationsData } from "@/utils/fakeRecommendations";
-import { useImageGeneration } from "@/hooks/GenerateImageResponse";
+import { useImageGeneration } from "@/hooks/useImageGeneration";
 
 interface PhaseFourProps {
   formData?: FormData;
@@ -87,9 +87,8 @@ ${JSON.stringify(roomItems, null, 2)}`;
         onSuccess: (data) => {
           setProgress(100);
           setTimeout(() => {
-            const rawUrl = `https://designture.runasp.net/${data.image}`;
-            const cleanedUrl = rawUrl.replace("/wwwroot", "");
-            setGeneratedImage(cleanedUrl); // Changed from data.imageUrl to data.image
+            setGeneratedImage(data.imageUrl);
+            console.log(data.imageUrl);
             setProgress(0);
             toast.success("Image generated successfully!");
           }, 500);
@@ -101,7 +100,7 @@ ${JSON.stringify(roomItems, null, 2)}`;
       }
     );
   };
-  console.log(generatedImage);
+  console.log(typeof generatedImage);
   return (
     <div className="min-h-screen px-4  py-6 m-auto flex flex-col">
       <div className="text-left mb-12">

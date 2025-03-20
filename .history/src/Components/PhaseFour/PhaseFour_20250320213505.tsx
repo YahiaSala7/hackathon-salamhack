@@ -5,7 +5,7 @@ import { FormData } from "@/types/formData";
 import { Category } from "@/types/product";
 import { RecommendationsByCategory } from "@/types/recommendations";
 import { fakeRecommendationsData } from "@/utils/fakeRecommendations";
-import { useImageGeneration } from "@/hooks/GenerateImageResponse";
+import { useImageGeneration } from "@/hooks/useImageGeneration";
 
 interface PhaseFourProps {
   formData?: FormData;

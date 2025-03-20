@@ -7,18 +7,17 @@ interface RecommendationCardProps {
   item: RecommendationItem;
   isLoaded: boolean;
   onLoad: () => void;
-  isFormSubmitted: boolean;
 }
 
 export const RecommendationCard: FC<RecommendationCardProps> = ({
   item,
   isLoaded,
   onLoad,
-  isFormSubmitted,
 }) => {
   console.log();
   const rawUrl = `https://designture.runasp.net/${item.image}`;
   const cleanedUrl = rawUrl.replace("/wwwroot", "");
+  console.log(item);
   return (
     <div className="h-full bg-background rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
       <div className="relative pt-[75%] md:pt-[66.67%] overflow-hidden">
@@ -30,7 +29,7 @@ export const RecommendationCard: FC<RecommendationCardProps> = ({
         />
         {/* Optimized image */}
         <Image
-          src={isFormSubmitted ? cleanedUrl : item.image}
+          src={cleanedUrl}
           alt={item.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

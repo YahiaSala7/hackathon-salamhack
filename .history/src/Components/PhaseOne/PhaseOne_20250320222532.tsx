@@ -214,7 +214,7 @@ const PhaseOne: FC<PhaseOneProps> = ({
       <div className="px-4 py-6 m-auto">
         <div className="flex items-center justify-between mb-8">
           <Image
-            src="/logo-removebg-preview.png"
+            src="/logo.jpeg"
             alt="Example image"
             width={200}
             height={200}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { LatLngExpression } from "leaflet";
 import { useProducts } from "@/hooks/useProducts";
 import { FormData } from "@/types/formData";
@@ -21,7 +21,7 @@ const categoryColors: Record<Category, string> = {
 interface PhaseThreeProps {
   formData: FormData | null;
   isFormSubmitted: boolean;
-  // hasPassedPhaseTwo: boolean;
+  hasPassedPhaseTwo: boolean;
   productsData: Product[];
   // isLoading: boolean;
   // error: Error | null;
@@ -30,7 +30,7 @@ interface PhaseThreeProps {
 const PhaseThree: React.FC<PhaseThreeProps> = ({
   formData,
   isFormSubmitted,
-  // hasPassedPhaseTwo,
+  hasPassedPhaseTwo,
   productsData,
   // isLoading,
   // error,
@@ -44,10 +44,6 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
     storeProximity: 5,
     sortBy: "price",
   });
-  // const displayData = useMemo(
-  //   () => (isFormSubmitted ? productsData : productsData),
-  //   [isFormSubmitted, productsData]
-  // );
 
   // Add view toggle state
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
@@ -75,9 +71,11 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
 
   const itemsPerPage = 10;
   const defaultCenter: LatLngExpression = [37.7749, -122.4194];
+
   // Filter and sort products
   const filteredAndSortedProducts = React.useMemo(() => {
     let result = [...productsData];
+
     // Apply price filter
     if (filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) {
       result = result.filter(
@@ -139,7 +137,6 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
 
     return result;
   }, [filters, productsData, defaultCenter]);
-  // console.log(filteredAndSortedProducts);
 
   // Pagination
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -151,25 +148,25 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
   };
 
   // Loading state
-  // if (isFormSubmitted) {
-  //   return (
-  //     <div className="flex items-center justify-center min-h-[400px]">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-  //     </div>
-  //   );
-  // }
+  if (isFormSubmitted) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   // Error state
-  // if (isFormSubmitted) {
-  //   return (
-  //     <div className="flex items-center justify-center min-h-[400px]">
-  //       <div className="text-red-500 text-center">
-  //         <p className="text-xl font-semibold mb-2">Error loading products</p>
-  //         {/* <p className="text-sm">{error.message}</p> */}
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (isFormSubmitted) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-red-500 text-center">
+          <p className="text-xl font-semibold mb-2">Error loading products</p>
+          {/* <p className="text-sm">{error.message}</p> */}
+        </div>
+      </div>
+    );
+  }
 
   // No data state - only show when there are no products at all
   if (!productsData.length) {
@@ -264,8 +261,8 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
 
         {/* Right Side - Product Display */}
         <div className="lg:col-span-3">
-          {viewMode === "card" && !isMobile ? (
-            <CardView
+          {viewMode === "table" && !isMobile ? (
+            <ProductTable
               items={currentItems}
               categoryColors={categoryColors}
               itemsPerPage={itemsPerPage}
@@ -274,7 +271,7 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
               onPageChange={handlePageChange}
             />
           ) : (
-            <ProductTable
+            <CardView
               items={currentItems}
               categoryColors={categoryColors}
               itemsPerPage={itemsPerPage}

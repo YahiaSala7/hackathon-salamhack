@@ -98,7 +98,7 @@ function Planning() {
       <PhaseThree
         formData={formData}
         isFormSubmitted={isFormSubmitted}
-        // hasPassedPhaseTwo={hasPassedPhaseTwo}
+        hasPassedPhaseTwo={hasPassedPhaseTwo}
         productsData={isFormSubmitted ? products || [] : SAMPLE_PRODUCTS}
         // isLoading={isCombinedDataLoading}
         // error={combinedDataError}

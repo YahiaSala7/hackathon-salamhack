@@ -17,8 +17,8 @@ export class ApiError extends Error {
 }
 
 // API Configuration
-//
-const API_BASE_URL = "https://designture.runasp.net/api/Plan";
+// https://designture.runasp.net/api/Plan
+const API_BASE_URL = "";
 const API_TIMEOUT = 30000; // 30 seconds
 
 // Helper function to handle API responses

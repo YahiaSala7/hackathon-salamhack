@@ -75,8 +75,6 @@ function Planning() {
         <PhaseOne
           setIsFormSubmitted={setIsFormSubmitted}
           setHasPassedPhaseOne={setHasPassedPhaseOne}
-          isFormSubmitted={isFormSubmitted}
-          hasPassedPhaseOne={hasPassedPhaseOne}
         />
       </div>
       setFormData(data);
@@ -98,7 +96,7 @@ function Planning() {
       <PhaseThree
         formData={formData}
         isFormSubmitted={isFormSubmitted}
-        // hasPassedPhaseTwo={hasPassedPhaseTwo}
+        hasPassedPhaseTwo={hasPassedPhaseTwo}
         productsData={isFormSubmitted ? products || [] : SAMPLE_PRODUCTS}
         // isLoading={isCombinedDataLoading}
         // error={combinedDataError}

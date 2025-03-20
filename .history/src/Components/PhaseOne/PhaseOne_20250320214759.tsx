@@ -24,9 +24,7 @@ import {
   styleOptions,
   occupantsOptions,
 } from "../PhaseOneComponents/constants";
-import Image from "next/image";
 
-// import {logo} from './../../../public/WhatsApp Image 2025-03-20 at 10.07.02 PM.jpeg'
 // Form validation schema
 const formSchema = z.object({
   currency: z.enum(["USD", "EUR", "GBP"], {
@@ -156,21 +154,28 @@ const PhaseOne: FC<PhaseOneProps> = ({
     try {
       dispatch({ type: "SET_LOADING", payload: true });
       dispatch({ type: "SET_PROGRESS", payload: 0 });
-
+  
+      // Start progress animation
+      const progressInterval = setInterval(() => {
+        dispatch({ 
+          type: "SET_PROGRESS", 
+          payload: (prev) => Math.min(prev + 10, 90)
+        });
+      }, 500);
+  
       submitHome(data, {
         onSuccess: (response) => {
           console.log("Submission successful");
           setIsFormSubmitted(!isFormSubmitted);
           setHasPassedPhaseOne(!hasPassedPhaseOne);
-
-          // Update progress to 100% immediately
+  
+          // Clear interval and set to 100%
+          clearInterval(progressInterval);
           dispatch({ type: "SET_PROGRESS", payload: 100 });
-
-          // Wait a moment to show completion
+  
           setTimeout(() => {
             dispatch({ type: "SET_LOADING", payload: false });
             dispatch({ type: "SET_PROGRESS", payload: 0 });
-            // Scroll to the next section instead of navigating
             const nextSection = document.getElementById("phase-two");
             if (nextSection) {
               nextSection.scrollIntoView({ behavior: "smooth" });
@@ -178,6 +183,8 @@ const PhaseOne: FC<PhaseOneProps> = ({
           }, 1000);
         },
         onError: (error) => {
+          // Clear interval on error
+          clearInterval(progressInterval);
           console.error("Submission error:", error);
           dispatch({ type: "SET_LOADING", payload: false });
           dispatch({ type: "SET_PROGRESS", payload: 0 });
@@ -208,17 +215,12 @@ const PhaseOne: FC<PhaseOneProps> = ({
       {state.showLoading && (
         <LoadingOverlay
           progress={state.progress}
-          // isLoading={state.showLoading}
+          isLoading={state.showLoading}
         />
       )}
       <div className="px-4 py-6 m-auto">
         <div className="flex items-center justify-between mb-8">
-          <Image
-            src="/logo-removebg-preview.png"
-            alt="Example image"
-            width={200}
-            height={200}
-          />
+          <h1 className="text-2xl text-heading">Logo</h1>
           <Breadcrumb pageName="Planning" />
         </div>
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">

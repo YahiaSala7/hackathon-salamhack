@@ -7,14 +7,12 @@ interface RecommendationCardProps {
   item: RecommendationItem;
   isLoaded: boolean;
   onLoad: () => void;
-  isFormSubmitted: boolean;
 }
 
 export const RecommendationCard: FC<RecommendationCardProps> = ({
   item,
   isLoaded,
   onLoad,
-  isFormSubmitted,
 }) => {
   console.log();
   const rawUrl = `https://designture.runasp.net/${item.image}`;
@@ -30,7 +28,7 @@ export const RecommendationCard: FC<RecommendationCardProps> = ({
         />
         {/* Optimized image */}
         <Image
-          src={isFormSubmitted ? cleanedUrl : item.image}
+          src={cleanedUrl | item.image}
           alt={item.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

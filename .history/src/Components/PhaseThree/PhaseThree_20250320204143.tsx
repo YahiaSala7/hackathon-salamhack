@@ -265,7 +265,7 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
         {/* Right Side - Product Display */}
         <div className="lg:col-span-3">
           {viewMode === "card" && !isMobile ? (
-            <CardView
+            <ProductTable
               items={currentItems}
               categoryColors={categoryColors}
               itemsPerPage={itemsPerPage}
@@ -274,7 +274,7 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
               onPageChange={handlePageChange}
             />
           ) : (
-            <ProductTable
+            <CardView
               items={currentItems}
               categoryColors={categoryColors}
               itemsPerPage={itemsPerPage}

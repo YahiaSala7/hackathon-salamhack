@@ -24,9 +24,7 @@ import {
   styleOptions,
   occupantsOptions,
 } from "../PhaseOneComponents/constants";
-import Image from "next/image";
 
-// import {logo} from './../../../public/WhatsApp Image 2025-03-20 at 10.07.02 PM.jpeg'
 // Form validation schema
 const formSchema = z.object({
   currency: z.enum(["USD", "EUR", "GBP"], {
@@ -120,18 +118,15 @@ const formSchema = z.object({
 interface PhaseOneProps {
   setIsFormSubmitted: (value: boolean) => void;
   setHasPassedPhaseOne: (value: boolean) => void;
-  isFormSubmitted: boolean;
-  hasPassedPhaseOne: boolean;
   // isLoading: boolean;
 }
 
 const PhaseOne: FC<PhaseOneProps> = ({
   setIsFormSubmitted,
   setHasPassedPhaseOne,
-  isFormSubmitted,
-  hasPassedPhaseOne,
 }) => {
   const router = useRouter();
+  console.log(onsubmit);
   const { mutate: submitHome, isPending } = useHomeSubmission();
   const [state, dispatch] = useReducer(formReducer, initialState);
 
@@ -160,9 +155,8 @@ const PhaseOne: FC<PhaseOneProps> = ({
       submitHome(data, {
         onSuccess: (response) => {
           console.log("Submission successful");
-          setIsFormSubmitted(!isFormSubmitted);
-          setHasPassedPhaseOne(!hasPassedPhaseOne);
-
+          setIsFormSubmitted(true);
+          setHasPassedPhaseOne(true);
           // Update progress to 100% immediately
           dispatch({ type: "SET_PROGRESS", payload: 100 });
 
@@ -205,20 +199,10 @@ const PhaseOne: FC<PhaseOneProps> = ({
   return (
     <div className="min-h-screen">
       <Toaster position="top-right" />
-      {state.showLoading && (
-        <LoadingOverlay
-          progress={state.progress}
-          // isLoading={state.showLoading}
-        />
-      )}
+      {state.showLoading && <LoadingOverlay progress={state.progress} />}
       <div className="px-4 py-6 m-auto">
         <div className="flex items-center justify-between mb-8">
-          <Image
-            src="/logo-removebg-preview.png"
-            alt="Example image"
-            width={200}
-            height={200}
-          />
+          <h1 className="text-2xl text-heading">Logo</h1>
           <Breadcrumb pageName="Planning" />
         </div>
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">

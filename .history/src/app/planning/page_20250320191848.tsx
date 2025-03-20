@@ -37,11 +37,12 @@ function Planning() {
   const recommendations = data?.recommendations ?? {};
   console.log(recommendations);
   // console.log(budgetDistribution);
-  const handleFormSubmit = useCallback((data: FormData) => {
-    setFormData(data);
-    setIsFormSubmitted(true);
-    setHasPassedPhaseOne(true);
-  }, []);
+  const handleFormSubmit = (data: FormData) => {
+      setFormData(data);
+      setIsFormSubmitted(true);
+      setHasPassedPhaseOne(true);
+    },
+    [];
   console.log(isFormSubmitted);
   // Optimized scroll handler with debouncing
   const handleScroll = useCallback(() => {
@@ -72,14 +73,8 @@ function Planning() {
   return (
     <div className="container mx-auto">
       <div ref={phaseOneRef} id="phase-one">
-        <PhaseOne
-          setIsFormSubmitted={setIsFormSubmitted}
-          setHasPassedPhaseOne={setHasPassedPhaseOne}
-          isFormSubmitted={isFormSubmitted}
-          hasPassedPhaseOne={hasPassedPhaseOne}
-        />
+        <PhaseOne onSubmit={handleFormSubmit} />
       </div>
-      setFormData(data);
       <PhaseTwo
         formData={formData}
         isFormSubmitted={isFormSubmitted}
@@ -98,7 +93,7 @@ function Planning() {
       <PhaseThree
         formData={formData}
         isFormSubmitted={isFormSubmitted}
-        // hasPassedPhaseTwo={hasPassedPhaseTwo}
+        hasPassedPhaseTwo={hasPassedPhaseTwo}
         productsData={isFormSubmitted ? products || [] : SAMPLE_PRODUCTS}
         // isLoading={isCombinedDataLoading}
         // error={combinedDataError}

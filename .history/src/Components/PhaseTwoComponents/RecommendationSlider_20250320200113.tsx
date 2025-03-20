@@ -18,7 +18,6 @@ export const RecommendationSlider: FC<RecommendationSliderProps> = ({
   items,
   loadedImages,
   onImageLoad,
-  isFormSubmitted,
 }) => {
   // Memoize slider settings to prevent unnecessary re-renders
   const sliderSettings = useMemo(
@@ -68,7 +67,6 @@ export const RecommendationSlider: FC<RecommendationSliderProps> = ({
                 item={item}
                 isLoaded={loadedImages.has(item.image)}
                 onLoad={() => onImageLoad(item.image)}
-                isFormSubmitted={isFormSubmitted}
               />
             </div>
           ))}

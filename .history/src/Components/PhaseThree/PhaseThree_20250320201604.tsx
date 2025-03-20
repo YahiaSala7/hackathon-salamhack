@@ -44,11 +44,11 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
     storeProximity: 5,
     sortBy: "price",
   });
-  // const displayData = useMemo(
-  //   () => (isFormSubmitted ? productsData : productsData),
-  //   [isFormSubmitted, productsData]
-  // );
-
+  const displayData = useMemo(
+    () => (isFormSubmitted ? productsData : productsData),
+    [isFormSubmitted, productsData]
+  );
+  console.log(displayData);
   // Add view toggle state
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
   const [isMobile, setIsMobile] = useState(false);
@@ -75,9 +75,11 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
 
   const itemsPerPage = 10;
   const defaultCenter: LatLngExpression = [37.7749, -122.4194];
+
   // Filter and sort products
   const filteredAndSortedProducts = React.useMemo(() => {
-    let result = [...productsData];
+    let result = [...displayData];
+
     // Apply price filter
     if (filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) {
       result = result.filter(
@@ -138,8 +140,7 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
     });
 
     return result;
-  }, [filters, productsData, defaultCenter]);
-  // console.log(filteredAndSortedProducts);
+  }, [filters, displayData, defaultCenter]);
 
   // Pagination
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -172,7 +173,7 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
   // }
 
   // No data state - only show when there are no products at all
-  if (!productsData.length) {
+  if (!displayData.length) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <p className="text-gray-500 text-center">
@@ -264,8 +265,8 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
 
         {/* Right Side - Product Display */}
         <div className="lg:col-span-3">
-          {viewMode === "card" && !isMobile ? (
-            <CardView
+          {viewMode === "table" && !isMobile ? (
+            <ProductTable
               items={currentItems}
               categoryColors={categoryColors}
               itemsPerPage={itemsPerPage}
@@ -274,7 +275,7 @@ const PhaseThree: React.FC<PhaseThreeProps> = ({
               onPageChange={handlePageChange}
             />
           ) : (
-            <ProductTable
+            <CardView
               items={currentItems}
               categoryColors={categoryColors}
               itemsPerPage={itemsPerPage}

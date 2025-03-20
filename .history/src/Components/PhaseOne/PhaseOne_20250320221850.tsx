@@ -25,7 +25,6 @@ import {
   occupantsOptions,
 } from "../PhaseOneComponents/constants";
 import Image from "next/image";
-
 // import {logo} from './../../../public/WhatsApp Image 2025-03-20 at 10.07.02 PM.jpeg'
 // Form validation schema
 const formSchema = z.object({
@@ -213,11 +212,12 @@ const PhaseOne: FC<PhaseOneProps> = ({
       )}
       <div className="px-4 py-6 m-auto">
         <div className="flex items-center justify-between mb-8">
-          <Image
-            src="/logo-removebg-preview.png"
-            alt="Example image"
-            width={200}
-            height={200}
+          <img
+            src={
+              "../../../public/WhatsApp Image 2025-03-20 at 10.07.02 PM.jpeg"
+            }
+            alt={`logo`}
+            className="w-[100px] h-[100px]"
           />
           <Breadcrumb pageName="Planning" />
         </div>

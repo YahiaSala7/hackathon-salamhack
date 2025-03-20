@@ -5,7 +5,7 @@ import { FormData } from "@/types/formData";
 import { Category } from "@/types/product";
 import { RecommendationsByCategory } from "@/types/recommendations";
 import { fakeRecommendationsData } from "@/utils/fakeRecommendations";
-import { useImageGeneration } from "@/hooks/GenerateImageResponse";
+import { useImageGeneration } from "@/hooks/useImageGeneration";
 
 interface PhaseFourProps {
   formData?: FormData;
@@ -17,7 +17,7 @@ function PhaseFour({ formData, recommendations }: PhaseFourProps) {
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
   const { mutate: generateImage, isPending, isError } = useImageGeneration();
-
+  const { mutateAsync: generateImageAsync } = useImageGeneration();
   const roomCategories: Category[] = [
     "Living Room",
     "Bedroom",
@@ -77,30 +77,26 @@ ${JSON.stringify(roomItems, null, 2)}`;
     return prompt;
   };
 
-  const handleGenerateImage = (roomCategory: Category) => {
+  const handleGenerateImage = async (roomCategory: Category) => {
     setSelectedRoom(roomCategory);
     const prompt = generatePrompt(roomCategory);
 
-    generateImage(
-      { prompt },
-      {
-        onSuccess: (data) => {
-          setProgress(100);
-          setTimeout(() => {
-            const rawUrl = `https://designture.runasp.net/${data.image}`;
-            const cleanedUrl = rawUrl.replace("/wwwroot", "");
-            setGeneratedImage(cleanedUrl); // Changed from data.imageUrl to data.image
-            setProgress(0);
-            toast.success("Image generated successfully!");
-          }, 500);
-        },
-        onError: () => {
-          setProgress(0);
-          toast.error("Failed to generate image. Please try again.");
-        },
-      }
-    );
+    try {
+      // Await the promise from mutateAsync
+      const data = await generateImageAsync({ prompt });
+      setProgress(100);
+      setTimeout(() => {
+        setGeneratedImage(data.imageUrl);
+        console.log(data.imageUrl);
+        setProgress(0);
+        toast.success("Image generated successfully!");
+      }, 500);
+    } catch (error) {
+      setProgress(0);
+      toast.error("Failed to generate image. Please try again.");
+    }
   };
+
   console.log(generatedImage);
   return (
     <div className="min-h-screen px-4  py-6 m-auto flex flex-col">

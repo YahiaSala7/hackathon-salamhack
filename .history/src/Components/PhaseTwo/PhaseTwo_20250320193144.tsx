@@ -109,7 +109,6 @@ const PhaseTwo: FC<PhaseTwoProps> = ({
                   items={items}
                   loadedImages={loadedImages}
                   onImageLoad={handleImageLoad}
-                  isFormSubmitted={isFormSubmitted}
                 />
               )
             )}

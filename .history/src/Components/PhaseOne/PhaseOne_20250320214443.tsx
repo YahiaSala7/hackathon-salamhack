@@ -24,9 +24,7 @@ import {
   styleOptions,
   occupantsOptions,
 } from "../PhaseOneComponents/constants";
-import Image from "next/image";
 
-// import {logo} from './../../../public/WhatsApp Image 2025-03-20 at 10.07.02 PM.jpeg'
 // Form validation schema
 const formSchema = z.object({
   currency: z.enum(["USD", "EUR", "GBP"], {
@@ -208,17 +206,12 @@ const PhaseOne: FC<PhaseOneProps> = ({
       {state.showLoading && (
         <LoadingOverlay
           progress={state.progress}
-          // isLoading={state.showLoading}
+          isLoading={state.showLoading}
         />
       )}
       <div className="px-4 py-6 m-auto">
         <div className="flex items-center justify-between mb-8">
-          <Image
-            src="/logo-removebg-preview.png"
-            alt="Example image"
-            width={200}
-            height={200}
-          />
+          <h1 className="text-2xl text-heading">Logo</h1>
           <Breadcrumb pageName="Planning" />
         </div>
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
