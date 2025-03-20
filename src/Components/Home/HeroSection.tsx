@@ -3,7 +3,7 @@ import Container from "./UI/Container";
 import Image from "next/image";
 const HeroSection = () => {
   return (
-    <Container className="flex items-center gap-10 justify-between max-sm:flex-col">
+    <Container className="flex items-center gap-10 justify-between max-sm:flex-col xl:min-h-[700px]">
       <main className="flex flex-col flex-3/5 gap-4 min-sm:pl-12 max-sm:text-center min-sm:mt-12 min-lg:flex-2/3 max-sm:px-2">
         <h1 className="text-[#0B132A] text-3xl/relaxed headerHero font-heading font-bold min-lg:w-10/12 ">
           Design Your Dream Home, Powered by AI
@@ -17,13 +17,13 @@ const HeroSection = () => {
         </p>
         <div className="flex gap-4 max-sm:justify-center">
           <Link href={"planning"}>
-            <button className="bg-button rounded-lg heroSectionButtons cursor-pointer  text-white text-base h-12 px-10 font-bold font-heading">
+            <button className="bg-button rounded-lg heroSectionButtons cursor-pointer  text-white text-base h-12 px-10 font-bold font-heading xl:h-24 xl:text-3xl xl:px-16">
               Start Planning
             </button>
           </Link>
 
           <Link href={"#howItWorks"}>
-            <button className="bg-button rounded-lg px-10 heroSectionButtons cursor-pointer text-white text-base h-12 font-bold font-heading">
+            <button className="bg-button rounded-lg px-10 heroSectionButtons cursor-pointer text-white text-base h-12 font-bold font-heading xl:h-24 xl:text-3xl xl:px-16">
               Know More
             </button>
           </Link>
