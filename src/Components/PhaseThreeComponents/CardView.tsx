@@ -52,7 +52,8 @@ export const CardView: React.FC<CardViewProps> = ({
             currentPage === i
               ? "text-white bg-blue-500 rounded"
               : "text-gray-700 hover:bg-gray-100 rounded"
-          }`}>
+          }`}
+        >
           {i}
         </button>
       );
@@ -75,7 +76,8 @@ export const CardView: React.FC<CardViewProps> = ({
         <button
           key={totalPages}
           onClick={() => onPageChange(totalPages)}
-          className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+          className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded"
+        >
           {totalPages}
         </button>
       );
@@ -107,14 +109,16 @@ export const CardView: React.FC<CardViewProps> = ({
             <button
               onClick={() => onPageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-2 py-2 text-xs sm:text-sm text-gray-500 hover:text-gray-700 disabled:text-gray-300">
+              className="px-2 py-2 text-xs sm:text-sm text-gray-500 hover:text-gray-700 disabled:text-gray-300"
+            >
               ‹
             </button>
             {renderPaginationButtons()}
             <button
               onClick={() => onPageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="px-2 py-2 text-xs sm:text-sm text-gray-500 hover:text-gray-700 disabled:text-gray-300">
+              className="px-2 py-2 text-xs sm:text-sm text-gray-500 hover:text-gray-700 disabled:text-gray-300"
+            >
               ›
             </button>
           </div>

@@ -39,7 +39,7 @@ export default function MobileHeader() {
           <Link href="#" className="text-white text-xl font-text">
             How it works
           </Link>
-          <Link href="#" className="text-white text-xl font-text">
+          <Link href="#planning" className="text-white text-xl font-text">
             Start now
           </Link>
         </nav>

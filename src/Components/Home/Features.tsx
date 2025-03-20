@@ -35,7 +35,7 @@ const Features = () => {
   ];
   return (
     <Container className="mt-28">
-      <div className="text-center mb-28">
+      <div className="text-center mb-28" id="features">
         <h2 className="font-heading font-medium text-4xl before:block before:content-[''] before:[width:calc(100%+40px)] before:h-0.5 before:bg-button before:absolute before:bottom-[-15px] before:-left-5 before:rounded-3xl relative w-fit mx-auto">
           Ai powered features
         </h2>
