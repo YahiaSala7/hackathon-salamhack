@@ -19,6 +19,9 @@ module.exports = {
         heading: ["rubik", "sans-serif"],
         text: ["inter", "sans-serif"],
       },
+      screens: {
+        "3xl": "1920px",
+      },
     },
   },
   plugins: [],
