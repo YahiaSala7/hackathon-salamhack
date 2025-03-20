@@ -1,0 +1,23 @@
+@SmartHomePlanner.Api_HostAddress = http://localhost:5170
+
+GET {{SmartHomePlanner.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST https://localhost:7196/api/plan/generate-plan
+Content-Type: application/json
+
+{
+  "الموقع": "الرياض",
+  "مساحة_المنزل": 250,
+  "الغرف": [
+    {
+      "اسم_الغرفة": "غرفة المعيشة",
+      "الكمية": 1,
+      "الارتفاع": 3,
+      "العرض": 5
+    }
+  ],
+  "التصميم_المفضل": "حديث"
+}
