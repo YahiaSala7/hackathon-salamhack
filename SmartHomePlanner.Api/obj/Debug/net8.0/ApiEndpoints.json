@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "PlanController",
+    "Method": "GenerateImage",
+    "RelativePath": "api/Plan/generate-image",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ImageGenerationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PlanController",
+    "Method": "GeneratePlan",
+    "RelativePath": "api/Plan/generate-plan",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SmartHomePlanner.Api.DTOS.PlanRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

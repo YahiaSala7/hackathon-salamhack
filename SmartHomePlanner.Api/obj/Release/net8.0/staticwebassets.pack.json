@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
+      "PackagePath": "staticwebassets\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
+      "PackagePath": "staticwebassets\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
+      "PackagePath": "staticwebassets\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.SmartHomePlanner.Api.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.SmartHomePlanner.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.SmartHomePlanner.Api.props",
+      "PackagePath": "build\\SmartHomePlanner.Api.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.SmartHomePlanner.Api.props",
+      "PackagePath": "buildMultiTargeting\\SmartHomePlanner.Api.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.SmartHomePlanner.Api.props",
+      "PackagePath": "buildTransitive\\SmartHomePlanner.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,331 @@
+{
+  "Version": 1,
+  "Hash": "Nmb0Y5pb5iQ4nlirgPIgcI3fr7d77PXq0XnDNk0845M=",
+  "Source": "SmartHomePlanner.Api",
+  "BasePath": "_content/SmartHomePlanner.Api",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "SmartHomePlanner.Api\\wwwroot",
+      "Source": "SmartHomePlanner.Api",
+      "ContentRoot": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\",
+      "BasePath": "_content/SmartHomePlanner.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
+      "SourceId": "SmartHomePlanner.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\",
+      "BasePath": "_content/SmartHomePlanner.Api",
+      "RelativePath": "images/stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lxkgdm65rb",
+      "Integrity": "+bK7abMmYgNwez/3K8LjubJPnt5ns9XjoqLELzXfY4A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
+      "SourceId": "SmartHomePlanner.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\",
+      "BasePath": "_content/SmartHomePlanner.Api",
+      "RelativePath": "images/stability_image_a3df5e42-defd-4612-9a73-25a879770b8a#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "offkxnpcg6",
+      "Integrity": "3GcTTBmB+qS5EKuosZKoQe6YPgqBzehWtVBbMDXQ+xU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
+      "SourceId": "SmartHomePlanner.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\",
+      "BasePath": "_content/SmartHomePlanner.Api",
+      "RelativePath": "images/stability_image_fd780466-ff00-4656-9a9f-7d467e060b42#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zc6cxo0sj5",
+      "Integrity": "M8xrt07Zkvp9GiSr2RjNH800uGAQprQ62ZaB9V2N8hM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "images/stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "262405"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+bK7abMmYgNwez/3K8LjubJPnt5ns9XjoqLELzXfY4A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Mar 2025 00:12:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+bK7abMmYgNwez/3K8LjubJPnt5ns9XjoqLELzXfY4A="
+        }
+      ]
+    },
+    {
+      "Route": "images/stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.lxkgdm65rb.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "262405"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+bK7abMmYgNwez/3K8LjubJPnt5ns9XjoqLELzXfY4A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Mar 2025 00:12:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lxkgdm65rb"
+        },
+        {
+          "Name": "label",
+          "Value": "images/stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+bK7abMmYgNwez/3K8LjubJPnt5ns9XjoqLELzXfY4A="
+        }
+      ]
+    },
+    {
+      "Route": "images/stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "438932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3GcTTBmB+qS5EKuosZKoQe6YPgqBzehWtVBbMDXQ+xU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Mar 2025 00:15:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-3GcTTBmB+qS5EKuosZKoQe6YPgqBzehWtVBbMDXQ+xU="
+        }
+      ]
+    },
+    {
+      "Route": "images/stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.offkxnpcg6.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "438932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3GcTTBmB+qS5EKuosZKoQe6YPgqBzehWtVBbMDXQ+xU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Mar 2025 00:15:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "offkxnpcg6"
+        },
+        {
+          "Name": "label",
+          "Value": "images/stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-3GcTTBmB+qS5EKuosZKoQe6YPgqBzehWtVBbMDXQ+xU="
+        }
+      ]
+    },
+    {
+      "Route": "images/stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "360218"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"M8xrt07Zkvp9GiSr2RjNH800uGAQprQ62ZaB9V2N8hM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Mar 2025 00:08:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-M8xrt07Zkvp9GiSr2RjNH800uGAQprQ62ZaB9V2N8hM="
+        }
+      ]
+    },
+    {
+      "Route": "images/stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.zc6cxo0sj5.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "360218"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"M8xrt07Zkvp9GiSr2RjNH800uGAQprQ62ZaB9V2N8hM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Mar 2025 00:08:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zc6cxo0sj5"
+        },
+        {
+          "Name": "label",
+          "Value": "images/stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-M8xrt07Zkvp9GiSr2RjNH800uGAQprQ62ZaB9V2N8hM="
+        }
+      ]
+    }
+  ]
+}

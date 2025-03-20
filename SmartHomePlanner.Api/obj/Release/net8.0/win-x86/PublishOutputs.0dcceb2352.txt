@@ -1,0 +1,14 @@
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\SmartHomePlanner.Api.exe
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\appsettings.Development.json
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\appsettings.json
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\SmartHomePlanner.Api.dll
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\SmartHomePlanner.Api.deps.json
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\SmartHomePlanner.Api.runtimeconfig.json
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\SmartHomePlanner.Api.pdb
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\OpenAI.dll
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\System.ClientModel.dll
+C:\Users\fares\source\repos\hackathon-salamhack\SmartHomePlanner.Api\obj\Release\net8.0\win-x86\PubTmp\Out\System.Memory.Data.dll

@@ -1,0 +1,58 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>SmartHomePlanner.Api</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/SmartHomePlanner.Api</BasePath>
+      <RelativePath>images/stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>lxkgdm65rb</Fingerprint>
+      <Integrity>+bK7abMmYgNwez/3K8LjubJPnt5ns9XjoqLELzXfY4A=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>SmartHomePlanner.Api</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/SmartHomePlanner.Api</BasePath>
+      <RelativePath>images/stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>offkxnpcg6</Fingerprint>
+      <Integrity>3GcTTBmB+qS5EKuosZKoQe6YPgqBzehWtVBbMDXQ+xU=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>SmartHomePlanner.Api</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/SmartHomePlanner.Api</BasePath>
+      <RelativePath>images/stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>zc6cxo0sj5</Fingerprint>
+      <Integrity>M8xrt07Zkvp9GiSr2RjNH800uGAQprQ62ZaB9V2N8hM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+  </ItemGroup>
+</Project>
