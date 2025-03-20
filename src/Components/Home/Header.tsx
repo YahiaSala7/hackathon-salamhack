@@ -5,7 +5,7 @@ import MobileHeader from "./MobileHeader";
 import "./style.css";
 const Header = () => {
   return (
-    <header className="relative overflow-hidden border-[1px] border-solid border-text">
+    <header className="relative overflow-hidden border-[1px] border-solid border-text ">
       <div className="max-md:hidden">
         <Container className="h-32">
           <div className="flex items-center justify-between h-full gap-28">
@@ -19,7 +19,7 @@ const Header = () => {
                 className="pl-2.5"
               />
             </div>
-            <div className="flex items-center justify-around px-10 grow gap-2.5">
+            <div className="flex items-center justify-around px-10 grow gap-2.5 h-full xl:bg-button">
               <Link
                 href={"#howItWorks"}
                 className="block text-2xl before:hidden text-white max-lg:text-lg font-text before:content-[''] before:w-full before:h-1 before:bg-button before:absolute before:bottom-[-30px] before:left-0 before:rounded-3xl relative hover:before:block"
@@ -46,7 +46,7 @@ const Header = () => {
           alt={""}
           width={1362}
           height={296}
-          className="absolute hidden md:block  md:top-[-65px] md:right-[-220px] lg:top-[-105px] lg:right-[-260px] xl:top-[-155px] xl:right-[-210px] 2xl:right-[-220px] z-[-1]"
+          className="absolute hidden md:block  md:top-[-65px] md:right-[-220px] lg:top-[-105px] lg:right-[-260px] xl:top-[-155px] xl:right-[-210px] 2xl:right-[-220px] z-[-1] xl:hidden"
         />
       </div>
       <MobileHeader />
