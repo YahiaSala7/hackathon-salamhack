@@ -8,7 +8,6 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
-  console.log("Initializing Providers");
   const [queryClient] = useState(
     () =>
       new QueryClient({
