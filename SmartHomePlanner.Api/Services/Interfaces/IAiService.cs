@@ -9,5 +9,6 @@ namespace SmartHomePlanner.Api.Services.Interfaces
         Task<string> GenerateHomeSetupRecommendationsAsync(string input);
         Task<string> GenerateRoomImageAsync(string prompt);
         Task<string> GenerateStabilityImage(string prompt);
+        Task<string> GenerateCloudflareImageAsync(string prompt);
     }
 }

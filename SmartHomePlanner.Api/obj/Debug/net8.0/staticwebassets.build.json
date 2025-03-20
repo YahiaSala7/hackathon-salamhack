@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "JiEftdHdeFk852S6aqeuQ+EEglwMZ6nSNiwtt7M+N+c=",
+  "Hash": "mlpZBa3x/MpP5d6HQA9Qvl+B7fklzbPh6WIpTFzQeVY=",
   "Source": "SmartHomePlanner.Api",
   "BasePath": "_content/SmartHomePlanner.Api",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "SmartHomePlanner.Api\\wwwroot",
       "Source": "SmartHomePlanner.Api",
-      "ContentRoot": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\",
       "BasePath": "_content/SmartHomePlanner.Api",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
+      "Identity": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
       "SourceId": "SmartHomePlanner.Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\",
       "BasePath": "_content/SmartHomePlanner.Api",
       "RelativePath": "images/stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -38,10 +38,10 @@
       "OriginalItemSpec": "wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg"
     },
     {
-      "Identity": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
+      "Identity": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
       "SourceId": "SmartHomePlanner.Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\",
       "BasePath": "_content/SmartHomePlanner.Api",
       "RelativePath": "images/stability_image_a3df5e42-defd-4612-9a73-25a879770b8a#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -59,10 +59,10 @@
       "OriginalItemSpec": "wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg"
     },
     {
-      "Identity": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
+      "Identity": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
       "SourceId": "SmartHomePlanner.Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\",
       "BasePath": "_content/SmartHomePlanner.Api",
       "RelativePath": "images/stability_image_fd780466-ff00-4656-9a9f-7d467e060b42#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -83,7 +83,7 @@
   "Endpoints": [
     {
       "Route": "images/stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
-      "AssetFile": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -120,7 +120,7 @@
     },
     {
       "Route": "images/stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.lxkgdm65rb.jpeg",
-      "AssetFile": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_6ace5b16-eb2d-42fc-bff4-050568142e44.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -165,7 +165,7 @@
     },
     {
       "Route": "images/stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
-      "AssetFile": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -202,7 +202,7 @@
     },
     {
       "Route": "images/stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.offkxnpcg6.jpeg",
-      "AssetFile": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_a3df5e42-defd-4612-9a73-25a879770b8a.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -247,7 +247,7 @@
     },
     {
       "Route": "images/stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
-      "AssetFile": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -284,7 +284,7 @@
     },
     {
       "Route": "images/stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.zc6cxo0sj5.jpeg",
-      "AssetFile": "C:\\Users\\fares\\source\\repos\\ABP\\SmartHomePlanner\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
+      "AssetFile": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\wwwroot\\images\\stability_image_fd780466-ff00-4656-9a9f-7d467e060b42.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {

@@ -18,50 +18,82 @@ namespace SmartHomePlanner.Api.Services
 
         public async Task<object> GenerateImageAsync(string prompt)
         {
-            var result = await _aiService.GenerateStabilityImage(prompt);
+            var result = await _aiService.GenerateCloudflareImageAsync(prompt);
 
             return new { image = result };
         }
 
         public async Task<HomeSetupResponseDto> GeneratePlanAsync(PlanRequestDto request)
         {
-            // 1. Calculate room areas
-            var roomAreas = request.Rooms.Select(r => new
-            {
-                Name = r.RoomName,
-                Area = r.Height * r.Width * r.Quantity
-            }).ToList();
-
-            // 2. Get climate data
-            //var climateDescription = await _climateService.GetClimateDescriptionAsync(request.Location);
-
             // 3. Generate AI recommendations
             var aiInput = JsonSerializer.Serialize(new
             {
                 request.Location,
-                request.PreferredStyle,
-                //Climate = climateDescription,
-                Rooms = roomAreas
+                request.TotalArea,
+                request.AreaUnit,
+                request.Bathrooms,
+                request.Bedrooms,
+                request.Currency,
+                request.LivingRoom,
+                request.OtherRooms,
+                request.Occupants,
+                request.Kitchen,
+                request.Budget,
+                request.Style
             });
 
             var result = await _aiService.GenerateHomeSetupRecommendationsAsync(aiInput);
+            var serializedResult = JsonSerializer.Deserialize<HomeSetupResponseDto>(result);
+            if (serializedResult != null && serializedResult.Recommendations != null)
+            {
+                // Access each room's recommendations individually
+                if (serializedResult.Recommendations.LivingRooms != null)
+                {
+                    foreach (var item in serializedResult.Recommendations.LivingRooms)
+                    {
+                        string prompt = item.Description; // Use the description for the image prompt
+                        item.Image = await _aiService.GenerateCloudflareImageAsync(prompt);
+                    }
+                }
 
-            //var allocationExplanation = await _aiService.GenerateAllocationExplanationAsync(aiInput);
-            //var homeSetupRecommendations = await _aiService.GenerateHomeSetupRecommendationsAsync(aiInput);
+                if (serializedResult.Recommendations.Bedrooms != null)
+                {
+                    foreach (var item in serializedResult.Recommendations.Bedrooms)
+                    {
+                        string prompt = item.Description;
+                        item.Image = await _aiService.GenerateCloudflareImageAsync(prompt);
+                    }
+                }
 
-            // 4. Process AI responses
-            //var resourceDistribution = ProcessAllocation(allocationExplanation);
-            // var recommendations = ProcessRecommendations(designRecommendations);
+                if (serializedResult.Recommendations.Kitchen != null)
+                {
+                    foreach (var item in serializedResult.Recommendations.Kitchen)
+                    {
+                        string prompt = item.Description;
+                        item.Image = await _aiService.GenerateCloudflareImageAsync(prompt);
+                    }
+                }
 
-            // 5. Generate additional suggestions
-            //var additionalSuggestions = new AdditionalSuggestionsDto
-            //{
-            //    DecisionExplanation = allocationExplanation,
-            //    ExtraTips = new List<string> { "استخدم أرفف معلقة لتوفير المساحة" }
-            //};
+                if (serializedResult.Recommendations.Bathrooms != null)
+                {
+                    foreach (var item in serializedResult.Recommendations.Bathrooms)
+                    {
+                        string prompt = item.Description;
+                        item.Image = await _aiService.GenerateCloudflareImageAsync(prompt);
+                    }
+                }
 
-            return JsonSerializer.Deserialize<HomeSetupResponseDto>(result);
+                if (serializedResult.Recommendations.OtherRooms != null)
+                {
+                    foreach (var item in serializedResult.Recommendations.OtherRooms)
+                    {
+                        string prompt = item.Description;
+                        item.Image = await _aiService.GenerateCloudflareImageAsync(prompt);
+                    }
+                }
+            }
 
+            return serializedResult;
         }
 
         private List<ResourceAllocationDto> ProcessAllocation(string aiResponse)

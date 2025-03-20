@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using SmartHomePlanner.Api.DTOS;
 using SmartHomePlanner.Api.Services.Interfaces;
 
@@ -17,6 +18,9 @@ public class GeminiService : IAiService
         _httpClient = new HttpClient();
     }
 
+    // Constants for Cloudflare API
+    private const string CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/eb8236a7fb747634c3f5e71944d678ac/ai/run/@cf/black-forest-labs/flux-1-schnell";
+    private const string CLOUDFLARE_API_TOKEN = "gzAEFWG5XvbTZs1JFgbHhaWPItaVOPwYmXc10Jd1"; // Replace with your token
     public async Task<string> GenerateAllocationExplanationAsync(string input)
     {
         try
@@ -206,6 +210,7 @@ public class GeminiService : IAiService
             Remember to ensure your response is ONLY the valid JSON without any additional text, explanations, or markdown code blocks.
             so here for the thumbnailUrl  and image can u generate an image and then put its url isnide of it the generated image will be like the descriton for each room ?
             for recomantionss of rooms put all recomandtions u have for each  room please  they can have multiple reocmandation u decide on the budget thing but at least give me 3  for each type
+            and also make sure there is at leats 2 to 3 products for each room
             """;
 
             // Create request body for Gemini
@@ -408,6 +413,70 @@ public class GeminiService : IAiService
         }
     }
 
+    public async Task<string> GenerateCloudflareImageAsync(string prompt)
+    {
+        try
+        {
+            using var client = new HttpClient();
+
+            // Set authorization header with the token
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CLOUDFLARE_API_TOKEN);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            // Prepare the request body
+            var requestBody = new
+            {
+                prompt = prompt,
+            };
+
+            var content = new StringContent(
+                JsonSerializer.Serialize(requestBody),
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            // Make the API request
+            var response = await client.PostAsync(CLOUDFLARE_API_URL, content);
+
+            // Check for success
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($"Cloudflare API error: {response.StatusCode} - {errorContent}");
+            }
+
+            // Handle the response (base64 or blob)
+            var responseJson = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<CloudflareImageResponse>(responseJson);
+
+            if (result == null || result.Result == null || string.IsNullOrEmpty(result.Result.Image))
+            {
+                throw new Exception("Invalid response from Cloudflare API: No image data found.");
+            }
+
+            // Decode the base64 image
+            var imageBytes = Convert.FromBase64String(result.Result.Image);
+
+            // Save the image to wwwroot
+            var fileName = $"cloudflare_image_{Guid.NewGuid()}.png";
+            var directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            Directory.CreateDirectory(directory);
+            var filePath = Path.Combine(directory, fileName);
+
+            await File.WriteAllBytesAsync(filePath, imageBytes);
+
+            // Return the relative path to the image
+            return $"wwwroot/images/{fileName}";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Cloudflare image generation error: {ex.Message}");
+            throw new Exception("Failed to generate image with Cloudflare", ex);
+        }
+    }
+
+    // Response model for Cloudflare API
+   
     // Helper method for creating properly formatted string form fields
     private static StringContent StringFormField(string name, string value)
     {
@@ -433,4 +502,18 @@ public class GeminiService : IAiService
         };
         return formField;
     }
+
+
+    public class CloudflareImageResponse
+    {
+        [JsonPropertyName("result")]
+        public ImageResult Result { get; set; }
+
+        public class ImageResult
+        {
+            [JsonPropertyName("image")]
+            public string Image { get; set; } // Base64-encoded image data
+        }
+    }
+
 }

@@ -87,46 +87,49 @@
             "type": "string",
             "nullable": true
           },
-          "totalArea": {
+          "area": {
             "type": "number",
             "format": "double"
           },
-          "rooms": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RoomDto"
-            },
+          "areaUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "bathrooms": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bedrooms": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string",
             "nullable": true
           },
           "budget": {
             "type": "number",
             "format": "double"
           },
-          "preferredStyle": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RoomDto": {
-        "type": "object",
-        "properties": {
-          "roomName": {
-            "type": "string",
-            "nullable": true
-          },
-          "quantity": {
+          "livingRoom": {
             "type": "integer",
             "format": "int32"
           },
-          "height": {
-            "type": "number",
-            "format": "double"
+          "otherRooms": {
+            "type": "string",
+            "nullable": true
           },
-          "width": {
-            "type": "number",
-            "format": "double"
+          "occupants": {
+            "type": "string",
+            "nullable": true
+          },
+          "kitchen": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "style": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

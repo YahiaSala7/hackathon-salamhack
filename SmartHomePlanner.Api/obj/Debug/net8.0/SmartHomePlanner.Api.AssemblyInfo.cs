@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartHomePlanner.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8587016956170cdc8f8375de0652e48b46c5285c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3fb46e1b1f77b2b0b4c376220ad073b00833d442")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartHomePlanner.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartHomePlanner.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

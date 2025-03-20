@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{2C5F48D4-0B7F-4B24-B7D1-8767F7A96530}|SmartHomePlanner.Api\\SmartHomePlanner.Api.csproj|c:\\users\\fares\\source\\repos\\hackathon-salamhack\\smarthomeplanner.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C5F48D4-0B7F-4B24-B7D1-8767F7A96530}|SmartHomePlanner.Api\\SmartHomePlanner.Api.csproj|solutionrelative:smarthomeplanner.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,21 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\Program.cs",
-              "RelativeDocumentMoniker": "SmartHomePlanner.Api\\Program.cs",
-              "ToolTip": "C:\\Users\\fares\\source\\repos\\hackathon-salamhack\\SmartHomePlanner.Api\\Program.cs",
-              "RelativeToolTip": "SmartHomePlanner.Api\\Program.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAYwDAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T02:18:16.24Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
