@@ -3,7 +3,7 @@ import Header from "@/Components/Home/Header";
 import HeroSection from "@/Components/Home/HeroSection";
 import HowItWorks from "@/Components/Home/HowItWorks";
 import JoinUs from "@/Components/Home/JoinUs";
-
+import "../Components/Home/style.css";
 export default function Home() {
   return (
     <>

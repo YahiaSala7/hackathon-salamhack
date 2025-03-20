@@ -28,3 +28,26 @@
   left: 50%;
   transform: translateX(-50%);
 }
+.heroText {
+  font-size: 20vw;
+}
+.headerHero {
+  font-size: clamp(1.5rem, 5vw, 2.8rem);
+}
+.textHero {
+  font-size: clamp(1rem, 1.2vw, 1.5rem);
+}
+.upAndDown {
+  animation: upAndDown 2.5s infinite ease-in-out;
+}
+@keyframes upAndDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

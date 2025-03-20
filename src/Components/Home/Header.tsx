@@ -27,13 +27,13 @@ const Header = () => {
                 How it works
               </Link>
               <Link
-                href={"#"}
+                href={"#features"}
                 className="block text-2xl before:hidden text-white max-lg:text-lg font-text before:content-[''] before:w-full before:h-1 before:bg-white before:absolute before:bottom-[-30px] before:left-0 before:rounded-3xl relative hover:before:block"
               >
                 Features
               </Link>
               <Link
-                href={"#"}
+                href={"planning"}
                 className="block text-2xl text-white max-lg:text-lg font-text before:content-[''] before:w-full before:h-1 before:bg-white before:absolute before:hidden before:bottom-[-30px] before:left-0 before:rounded-3xl relative hover:before:block"
               >
                 Start now

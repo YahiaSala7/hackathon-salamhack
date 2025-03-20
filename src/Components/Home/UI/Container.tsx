@@ -7,9 +7,7 @@ const Container = ({
 }) => {
   console.log(className);
 
-  return (
-    <div className={`md:px-[60px] lg:px-[100px] ` + className}>{children}</div>
-  );
+  return <div className={`lg:px-[100px] ` + className}>{children}</div>;
 };
 
 export default Container;
